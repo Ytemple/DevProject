@@ -1,46 +1,30 @@
 
 import $ from 'jquery'
+let dataConfig10
+let dataConfig1=[]
+$.ajax({
+  type:"get",
+  url:"http://localhost:9001/equip/data/buildMenu",
+  dataType:'JSON',
+  async:false,
+  success:function(res){
+    if(res.flag){
+     console.log(res)
+     
+     dataConfig10=res.data
+    }
+  },
+  error:function(){
 
-let dataConfig=[
-  
-    {
-      label: '图像',
-      key: '/tree11',
-      path:'11',
-      children: [
-        {
-          label: '图像11',
-          key: '/tree1.11',
-          path:'11',
-        },
-      ],
-    },
-    {
-      label: '振动',
-      key: '/tree12',
-      path:'12',
-      children: [
-        {
-          label: '振动12',
-          key: '/tree1.12',
-          path:'12',
-        },
-      ],
-    },
-    {
-      label: '时序',
-      key: '/tree13',
-      path:'13',
-      children: [
-        {
-          label: '时序13',
-          key: '/tree1.13',
-          path:'13',
-        },
-      ],
-    },
-  ];
-  
+  }
+})
+dataConfig10.map((item,index)=>{
+  dataConfig1.push(item[0])
+})
+let dataConfig2=JSON.parse(JSON.stringify(dataConfig1).replace(/"menuName"/g,' "label"'))  ;
+ let dataConfig3=JSON.parse(JSON.stringify(dataConfig2).replace(/"id"/g,' "key"'))  ;
+ let dataConfig=JSON.parse(JSON.stringify(dataConfig3).replace(/"child"/g,' "children"'))   ;
+//console.log('15:46',dataConfig)
 export default dataConfig;
 /** 
 $.ajax({
