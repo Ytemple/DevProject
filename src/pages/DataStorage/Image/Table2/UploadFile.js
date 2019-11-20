@@ -1,7 +1,7 @@
 import { Upload, Button } from '@alifd/next';
 import React, { Component } from 'react';
 import $ from 'jquery'
-import  {headerToken,hostPort} from '../../../Common'
+import  {headerToken,hostPort} from '../../../../Common'
 
 let i = 100
 const defaultValue = [

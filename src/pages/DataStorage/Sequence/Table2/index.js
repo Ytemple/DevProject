@@ -1,14 +1,15 @@
 import React, { Component } from 'react';
 import IceContainer from '@icedesign/container';
 import { Tab } from '@alifd/next';
-import Vibration from './Vibration/Vibration'
-import Sequence from './Sequence/Sequence'
-import Image from './Image/Image'
+import UploadFile from '../Table2/UploadFile';
+import Table from '../Table2/TabTable/Table'
 
 const TabPane = Tab.Item;
 
-export default class TagManagement extends Component {
-  static displayName = 'TagManagement';
+
+
+export default class Table2 extends Component {
+  static displayName = 'Table2';
 
   static propTypes = {};
 
@@ -22,9 +23,8 @@ export default class TagManagement extends Component {
 
   render() {
     const tabs = [
-      { tab: '振动数据', key: '1', content: <Vibration /> },
-      { tab: '时序数据', key: '2', content: <Sequence /> },
-      { tab: '图像数据', key: '3', content: <Image /> },
+      { tab: '数据展示', key: '1', content: <Table /> },
+      { tab: '数据上传', key: '2', content: <UploadFile /> },
     ];
 
     return (

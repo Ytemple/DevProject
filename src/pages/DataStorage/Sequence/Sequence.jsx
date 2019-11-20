@@ -9,7 +9,7 @@ import Table1 from './Table1/index'
 import Table2 from './Table2/index'
 import UploadFile from './Table2/UploadFile'
 import PropTypes from 'prop-types';
-import {headerToken,hostPort} from '../../Common'
+import {headerToken,hostPort} from '../../../Common'
 let data1 = [];
 let n1 = 1111;
 let i = 100000000
@@ -18,9 +18,9 @@ const defaultValue = [   //在这里定义文件列表中要显示的数据
 ];
 
 
-export default class DataStorage extends Component {
+export default class Sequence extends Component {
 
-  static displayName = 'DataStorage';
+  static displayName = 'Sequence';
   static contextTypes = {
   }
   constructor(props) {

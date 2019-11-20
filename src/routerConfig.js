@@ -5,7 +5,7 @@ import UserLogin from '@/pages/UserLogin';
 import UserRegister from '@/pages/UserRegister';
 
 import NotFound from '@/pages/NotFound';
-import DataStorage from '../src/pages/DataStorage/DataStorage';  //数据存储管理
+import DataStorage from '../src/pages/DataStorage/index';  //数据存储管理
 import DataProcessing from '../src/pages/DataProcessing/DataProcessing'; //数据处理流程
 import List from '../src/pages/DataProcessing/List/index'   //数据处理流程/列表界面
 import DataMining from '../src/pages/DataMining/DataMining';
