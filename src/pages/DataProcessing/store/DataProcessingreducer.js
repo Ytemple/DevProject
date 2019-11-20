@@ -73,7 +73,7 @@ const defaultState = {
    
     list:[
       {
-        id: '2',
+        id: 1,
         title: 'hhh',
         cards: [
           {
