@@ -43,7 +43,6 @@ componentDidMount(){
         }
       },
       error:function(){
-    
       }
     })
     if(dataConfig10){
@@ -51,13 +50,15 @@ componentDidMount(){
         dataConfig1.push(item[0])
       })
     }
-    
     let dataConfig2=JSON.parse(JSON.stringify(dataConfig1).replace(/"menuName"/g,' "label"'))  ;
      let dataConfig3=JSON.parse(JSON.stringify(dataConfig2).replace(/"id"/g,' "key"'))  ;
      let dataConfig=JSON.parse(JSON.stringify(dataConfig3).replace(/"child"/g,' "children"'))   ;
-     this.setState({
-         data:dataConfig
-     })
+     if(dataConfig10){
+        this.setState({
+            data:dataConfig
+        })
+     }
+     
 }
 
 onSelect = (selectedKeys, node) => {

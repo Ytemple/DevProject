@@ -1,22 +1,42 @@
 let dataConfig=[
+  
   {
-    label:'233',
-    key:'22',
+    label: '图像',
+    key: '/tree11',
     path:'11',
-    children:[
+    children: [
       {
-        label:'2333',
-        key:'223',
-        path:'113',
+        label: '图像11',
+        key: '/tree1.11',
+        path:'11',
       },
-    ]
-  }
-]
-
-
-
-
-
+    ],
+  },
+  {
+    label: '振动',
+    key: '/tree12',
+    path:'12',
+    children: [
+      {
+        label: '振动12',
+        key: '/tree1.12',
+        path:'12',
+      },
+    ],
+  },
+  {
+    label: '时序',
+    key: '/tree13',
+    path:'13',
+    children: [
+      {
+        label: '时序13',
+        key: '/tree1.13',
+        path:'13',
+      },
+    ],
+  },
+];
 /**
 import $ from 'jquery'
 let dataConfig10
