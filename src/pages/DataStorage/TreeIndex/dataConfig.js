@@ -1,5 +1,34 @@
+let dataConfig=[
+  {
+    label:'233',
+    key:'22',
+    path:'11',
+    children:[
+      {
+        label:'2333',
+        key:'223',
+        path:'113',
+      },
+    ]
+  }
+]
 
+
+
+
+
+/**
 import $ from 'jquery'
+let dataConfig10
+let dataConfig1=[]
+$.ajax({
+  type:"get",
+  url:"http://localhost:9001/equip/data/buildMenu",
+  dataType:'JSON',
+  async:false,
+  success:function(res){
+    if(res.flag){
+     console.log(res)
      
      dataConfig10=res.data
     }
@@ -17,7 +46,9 @@ if(dataConfig10){
 let dataConfig2=JSON.parse(JSON.stringify(dataConfig1).replace(/"menuName"/g,' "label"'))  ;
  let dataConfig3=JSON.parse(JSON.stringify(dataConfig2).replace(/"id"/g,' "key"'))  ;
  let dataConfig=JSON.parse(JSON.stringify(dataConfig3).replace(/"child"/g,' "children"'))   ;
-//console.log('15:46',dataConfig)
+ */
+
+
 export default dataConfig;
 /** 
 $.ajax({
