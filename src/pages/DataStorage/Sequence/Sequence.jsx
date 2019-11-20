@@ -7,8 +7,7 @@ import TreeIndex from './TreeIndex/index';
 import dataConfig from './TreeIndex/dataConfig'
 import Table1 from './Table1/index'
 import Table2 from './Table2/index'
-import UploadFile from './Table2/UploadFile'
-import PropTypes from 'prop-types';
+import store from '../../Store/index'
 import {headerToken,hostPort} from '../../../Common'
 let data1 = [];
 let n1 = 1111;
@@ -29,11 +28,17 @@ export default class Sequence extends Component {
     this.state = {
       displayName: 'none',
       childrenData: data1,  //table1中的数据
-      dataConfig: dataConfig,
+      dataConfig: store.getState().dataConfig,
       treeKey: '',  //当前选中的树节点
       number: n1,  //给number写一个异步的
       FileValue: defaultValue,
     };
+    store.subscribe(this.handleStoreChange);
+  }
+  handleStoreChange=()=>{
+    this.setState({
+      dataConfig: store.getState().dataConfig,
+    })
   }
 
   /**通过单击，来设置display，决定是否展现组件 */
