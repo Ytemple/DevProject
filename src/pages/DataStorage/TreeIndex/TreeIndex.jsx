@@ -1,5 +1,6 @@
 import { Tree ,Search} from '@alifd/next';
 import React, { Component } from 'react';
+import $ from 'jquery'
 //import dataConfig from './dataConfig'
 import PropTypes from 'prop-types';
 //const data=dataConfig;
@@ -26,7 +27,38 @@ constructor(props) {
   };
   this.matchedKeys = [];
 }
-
+componentDidMount(){
+    let dataConfig10
+    let dataConfig1=[]
+    $.ajax({
+      type:"get",
+      url:"http://localhost:9001/equip/data/buildMenu",
+      dataType:'JSON',
+      async:false,
+      success:function(res){
+        if(res.flag){
+         console.log(res)
+         
+         dataConfig10=res.data
+        }
+      },
+      error:function(){
+    
+      }
+    })
+    if(dataConfig10){
+      dataConfig10.map((item,index)=>{
+        dataConfig1.push(item[0])
+      })
+    }
+    
+    let dataConfig2=JSON.parse(JSON.stringify(dataConfig1).replace(/"menuName"/g,' "label"'))  ;
+     let dataConfig3=JSON.parse(JSON.stringify(dataConfig2).replace(/"id"/g,' "key"'))  ;
+     let dataConfig=JSON.parse(JSON.stringify(dataConfig3).replace(/"child"/g,' "children"'))   ;
+     this.setState({
+         data:dataConfig
+     })
+}
 
 onSelect = (selectedKeys, node) => {
     const {selectedKey} =this.state;
