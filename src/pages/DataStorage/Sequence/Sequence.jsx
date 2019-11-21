@@ -115,9 +115,15 @@ export default class Sequence extends Component {
   changeChild = (name, code, key) => {
     const { dataConfig } = this.state
     this.dataCircleChange(this.state.dataConfig, name, code, key)
+    console.log('15:13',name, code, key)
   }
 
   dataCircleChange = (data, name, code, key) => {
+    const action={
+      type:'SequenceChangeChild',
+      name,
+      key
+    }
     data.map((item, index) => {
       if (item.key == key) {
         item.label = name
