@@ -51,18 +51,13 @@ componentDidMount(){
             data:dataConfig
         })
     }
-    
-     
-     
 }
 
 onSelect = (selectedKeys, node) => {
     const {selectedKey} =this.state;
    
     if(selectedKeys[0]){  //在这个地方判断的是是否选中了节点，如果节点选择重复，那么节点就是undefined，通过这个判断，就可以解决。
-       
         this.props.onSelectBlock(selectedKeys[0]);  //父组件中定义的方法，在子组件中用，直接获取数据。
-        
         this.props.getChildrenData(selectedKeys[0],this.state.data);
         this.props.getTreekey(selectedKeys)
         this.setState({
@@ -75,7 +70,6 @@ onSelect = (selectedKeys, node) => {
 
     handleSearch=(value)=> {
         const {data } = this.state;
-        console.log('7.15')
         console.log(data)
         value = value.trim();
         if (!value) {
@@ -93,7 +87,6 @@ onSelect = (selectedKeys, node) => {
             }
         });
         loop(data);
-      //  console.log(matchedKeys)
         this.setState({
             expandedKeys: [...matchedKeys],
             autoExpandParent: true
@@ -107,10 +100,7 @@ onSelect = (selectedKeys, node) => {
             autoExpandParent: false
         });
     }
-    
-
     render() {
-        
         const { expandedKeys, autoExpandParent } = this.state;
         const filterTreeNode = node => {
             return this.matchedKeys && this.matchedKeys.indexOf(node.props.eventKey) > -1;

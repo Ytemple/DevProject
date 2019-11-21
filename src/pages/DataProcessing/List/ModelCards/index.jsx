@@ -24,11 +24,8 @@ const dataSet = [{
 
 export default class ModelCards extends Component {
   static displayName = 'ModelCards';
-
   static propTypes = {};
-
   static defaultProps = {};
-
   constructor(props) {
     super(props);
     const cardList= store.getState().DataProcessingreducer.list
@@ -42,7 +39,6 @@ export default class ModelCards extends Component {
     this.setState({
       list:store.getState().DataProcessingreducer.list
     });
-
     console.log('handleStoreChange',this.state)
   }
   executeModel=(index)=>{

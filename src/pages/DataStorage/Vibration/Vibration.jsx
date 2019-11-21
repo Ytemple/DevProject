@@ -28,7 +28,7 @@ export default class Vibration extends Component {
     this.state = {
       displayName: 'none',
       childrenData: data1,  //table1中的数据
-      dataConfig: store.getState().DataStoragereducer.dataConfig,
+      dataConfig: store.getState().DataStoragereducer.VibrationDataConfig,
       treeKey: '',  //当前选中的树节点
       number: n1,  //给number写一个异步的
       FileValue: defaultValue,
@@ -37,8 +37,9 @@ export default class Vibration extends Component {
   }
   handleStoreChange=()=>{
     this.setState({
-      dataConfig: store.getState().dataConfig,
+      dataConfig: store.getState().VibrationDataConfig,
     })
+    console.log('handlechange vibration',this.state)
   }
 
   /**通过单击，来设置display，决定是否展现组件 */
@@ -128,6 +129,11 @@ export default class Vibration extends Component {
       if (item.children) {
         this.dataCircleChange(item.children, name, code, key)
       }
+      const action ={
+        type:'VibrationchangeChild',
+        dataConfig:data
+      }
+      store.dispatch(action)
     })
   }
   /**新增树节点 */

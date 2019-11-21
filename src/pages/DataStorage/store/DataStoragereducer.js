@@ -3,19 +3,7 @@ import {CHANGE_INPUT_VALUE,ADD_TODO_ITEM,DELETE_TODO_ITEM} from '../store/action
 
 
 const dataStorage={
-  dataConfig:[
-    {
-      label: '图像',
-      key: '/tree11',
-      path:'11',
-      children: [
-        {
-          label: '图像11',
-          key: '/tree1.11',
-          path:'11',
-        },
-      ],
-    },
+  VibrationDataConfig:[
     {
       label: '振动',
       key: '/tree12',
@@ -28,6 +16,8 @@ const dataStorage={
         },
       ],
     },
+  ],
+  SequenceDataConfig:[
     {
       label: '时序',
       key: '/tree13',
@@ -37,6 +27,20 @@ const dataStorage={
           label: '时序13',
           key: '/tree1.13',
           path:'13',
+        },
+      ],
+    },
+  ],
+  ImageDataConfig:[
+    {
+      label: '图像',
+      key: '/tree11',
+      path:'11',
+      children: [
+        {
+          label: '图像11',
+          key: '/tree1.11',
+          path:'11',
         },
       ],
     },
@@ -61,7 +65,12 @@ const DataStoragereducer = (state=dataStorage,action)=>{
         newState.list.splice(action.index,1)
         return newState;
     }
-    console.log('17:29',state)
+    if(action.type==='VibrationchangeChild'){
+     const newState=JSON.parse(JSON.stringify(state));
+     newState.VibrationDataConfig=action.dataConfig
+      return newState;
+    }
+    
    
     return state;  //state存放的是所有的信息，整个store仓库里存储的数据 action指用户传过来的那句话
    

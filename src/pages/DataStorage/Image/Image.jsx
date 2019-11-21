@@ -29,7 +29,7 @@ export default class Image extends Component {
     this.state = {
       displayName: 'none',
       childrenData: data1,  //table1中的数据
-      dataConfig: store.getState().DataStoragereducer.dataConfig,
+      dataConfig: store.getState().DataStoragereducer.ImageDataConfig,
       treeKey: '',  //当前选中的树节点
       number: n1,  //给number写一个异步的
       FileValue: defaultValue,
@@ -38,7 +38,7 @@ export default class Image extends Component {
   }
   handleStoreChange=()=>{
     this.setState({
-      dataConfig: store.getState().dataConfig,
+      dataConfig: store.getState().ImageDataConfig,
     })
   }
 
