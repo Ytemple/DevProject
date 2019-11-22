@@ -65,13 +65,56 @@ const DataStoragereducer = (state=dataStorage,action)=>{
         newState.list.splice(action.index,1)
         return newState;
     }
+    
+    /** vibration */
     if(action.type==='VibrationchangeChild'){
      const newState=JSON.parse(JSON.stringify(state));
      newState.VibrationDataConfig=action.dataConfig
       return newState;
     }
-    
-   
+     if(action.type==='VibrationdeleteChild'){
+      const newState=JSON.parse(JSON.stringify(state));
+      newState.VibrationDataConfig=action.dataConfig
+       return newState;
+     }
+     if(action.type==='VibrationaddChild'){
+      const newState=JSON.parse(JSON.stringify(state));
+      newState.VibrationDataConfig=action.dataConfig
+       return newState;
+     }
+    /** sequence */
+    if(action.type==='SequencechangeChild'){
+      const newState=JSON.parse(JSON.stringify(state));
+      newState.VibrationDataConfig=action.dataConfig
+       return newState;
+     }
+     if(action.type==='SequencedeleteChild'){
+      const newState=JSON.parse(JSON.stringify(state));
+      newState.VibrationDataConfig=action.dataConfig
+       return newState;
+     }
+     if(action.type==='SequenceaddChild'){
+      const newState=JSON.parse(JSON.stringify(state));
+      newState.VibrationDataConfig=action.dataConfig
+       return newState;
+     }
+     /** image */
+     if(action.type==='ImagechangeChild'){
+      const newState=JSON.parse(JSON.stringify(state));
+      newState.VibrationDataConfig=action.dataConfig
+       return newState;
+     }
+     if(action.type==='ImagedeleteChild'){
+      const newState=JSON.parse(JSON.stringify(state));
+      newState.VibrationDataConfig=action.dataConfig
+       return newState;
+     }
+     if(action.type==='ImageaddChild'){
+      const newState=JSON.parse(JSON.stringify(state));
+      newState.VibrationDataConfig=action.dataConfig
+       return newState;
+     }
+
     return state;  //state存放的是所有的信息，整个store仓库里存储的数据 action指用户传过来的那句话
    
 }

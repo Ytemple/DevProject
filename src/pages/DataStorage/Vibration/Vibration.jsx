@@ -139,7 +139,6 @@ export default class Vibration extends Component {
   /**新增树节点 */
   
   addChild = (newData) => {
-    i++
     let xinzeng = {
       label:  '新增',
     }
@@ -151,18 +150,20 @@ export default class Vibration extends Component {
         this.getData(item.children, addData)
       }
       if (item.key == this.state.treeKey) {  //树节点遍历的节点如果和当前选中的节点相同，那么就在当前选中的节点下，新增一个子节点
-
-        if (!item.children) {
+       if (!item.children) {
           item.children = []//这个地方会将以前已经创建的清空
         }
-        let label, key, componentNo,isDirectory
-       
         item.children.push(addData)
         this.setState({
           dataConfig: this.state.dataConfig
         })
       }
     })
+    const action ={
+      type:'VibrationaddChild',
+      dataConfig:data
+    }
+    store.dispatch(action)
   }
  
 
@@ -176,15 +177,18 @@ export default class Vibration extends Component {
     data.map((item, index) => {
       if (item.key == fatherKey) {
         item.children.splice(tIndex, 1)
-
         this.setState({
           dataConfig: this.state.dataConfig,
         })
-
       }
       if (item.children) {
         this.dataCircleDelete(item.children, key, fatherKey, tIndex)
       }
+      const action ={
+        type:'VibrationdeleteChild',
+        dataConfig:data
+      }
+      store.dispatch(action)
     })
   }
  

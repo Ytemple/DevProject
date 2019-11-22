@@ -130,6 +130,11 @@ export default class Image extends Component {
         this.dataCircleChange(item.children, name, code, key)
       }
     })
+    const action ={
+      type:'ImagechangeChild ',
+      dataConfig:data
+    }
+    store.dispatch(action)
   }
   /**新增树节点 */
   
@@ -158,13 +163,16 @@ export default class Image extends Component {
         })
       }
     })
+    const action ={
+      type:'ImageaddChild',
+      dataConfig:data
+    }
+    store.dispatch(action)
   }
  
 
   /**删除树节点 */
   deleteChild = (value, tIndex) => {
-    console.log('20:00')
-    console.log(value)
     this.dataCircleDelete(this.state.dataConfig, value.treeTableKey, this.state.treeKey, tIndex)
   }
   dataCircleDelete = (data, key, fatherKey, tIndex) => {
@@ -181,6 +189,11 @@ export default class Image extends Component {
         this.dataCircleDelete(item.children, key, fatherKey, tIndex)
       }
     })
+    const action ={
+      type:'ImagedeleteChild',
+      dataConfig:data
+    }
+    store.dispatch(action)
   }
  
 

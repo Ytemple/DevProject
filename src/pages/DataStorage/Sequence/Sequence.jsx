@@ -119,11 +119,7 @@ export default class Sequence extends Component {
   }
 
   dataCircleChange = (data, name, code, key) => {
-    const action={
-      type:'SequenceChangeChild',
-      name,
-      key
-    }
+   
     data.map((item, index) => {
       if (item.key == key) {
         item.label = name
@@ -135,6 +131,11 @@ export default class Sequence extends Component {
         this.dataCircleChange(item.children, name, code, key)
       }
     })
+    const action ={
+      type:'SequencechangeChild',
+      dataConfig:data
+    }
+    store.dispatch(action)
   }
   /**新增树节点 */
   
@@ -163,6 +164,11 @@ export default class Sequence extends Component {
         })
       }
     })
+    const action ={
+      type:'SequenceaddChild',
+      dataConfig:data
+    }
+    store.dispatch(action)
   }
  
 
@@ -186,6 +192,11 @@ export default class Sequence extends Component {
         this.dataCircleDelete(item.children, key, fatherKey, tIndex)
       }
     })
+    const action ={
+      type:'SequencedeleteChild',
+      dataConfig:data
+    }
+    store.dispatch(action)
   }
  
 
