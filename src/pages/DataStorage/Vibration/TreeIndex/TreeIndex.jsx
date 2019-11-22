@@ -27,33 +27,7 @@ constructor(props) {
   };
   this.matchedKeys = [];
 }
-componentDidMount(){
-    let dataConfig10
-    let dataConfig1=[]
-    $.ajax({
-      type:"get",
-      url:"http://localhost:9001/equip/data/buildMenu",
-      dataType:'JSON',
-      async:false,
-      success:function(res){
-        if(res.flag){
-         dataConfig10=res.data[2]
-        }
-      },
-      error:function(){
-      }
-    })
-    if(dataConfig10){
-        let dataConfig2=JSON.parse(JSON.stringify(dataConfig10).replace(/"menuName"/g,' "label"'))  ;
-        let dataConfig3=JSON.parse(JSON.stringify(dataConfig2).replace(/"id"/g,' "key"'))  ;
-        let dataConfig=JSON.parse(JSON.stringify(dataConfig3).replace(/"child"/g,' "children"'))   ;
-        this.setState({
-            data:dataConfig
-        })
-    }
-    
-     
-}
+
 
 onSelect = (selectedKeys, node) => {
     const {selectedKey} =this.state;

@@ -67,6 +67,11 @@ const DataStoragereducer = (state=dataStorage,action)=>{
     }
     
     /** vibration */
+    if(action.type==='VibrationComponenDidMount'){
+      const newState=JSON.parse(JSON.stringify(state));
+      newState.VibrationDataConfig=action.dataConfig
+       return newState;
+     }
     if(action.type==='VibrationchangeChild'){
      const newState=JSON.parse(JSON.stringify(state));
      newState.VibrationDataConfig=action.dataConfig

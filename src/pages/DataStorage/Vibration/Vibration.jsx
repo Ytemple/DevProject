@@ -42,6 +42,33 @@ export default class Vibration extends Component {
     console.log('handlechange vibration',this.state)
   }
 
+  componentDidMount(){
+    let dataConfig10
+    $.ajax({
+      type:"get",
+      url:"http://localhost:9001/equip/data/buildMenu",
+      dataType:'JSON',
+      async:false,
+      success:function(res){
+        if(res.flag){
+         dataConfig10=res.data[2]
+        }
+      },
+      error:function(){
+      }
+    })
+    if(dataConfig10){
+        let dataConfig2=JSON.parse(JSON.stringify(dataConfig10).replace(/"menuName"/g,' "label"'))  ;
+        let dataConfig3=JSON.parse(JSON.stringify(dataConfig2).replace(/"id"/g,' "key"'))  ;
+        let dataConfig1=JSON.parse(JSON.stringify(dataConfig3).replace(/"child"/g,' "children"'))   ;
+        const action ={
+          type:'VibrationComponenDidMount',
+          dataConfig:dataConfig1
+        }
+        store.dispatch(action)
+    }
+}
+
   /**通过单击，来设置display，决定是否展现组件 */
 
   onSelectBlock = (url) => {
@@ -129,6 +156,7 @@ export default class Vibration extends Component {
       if (item.children) {
         this.dataCircleChange(item.children, name, code, key)
       }
+      
       const action ={
         type:'VibrationchangeChild',
         dataConfig:data
