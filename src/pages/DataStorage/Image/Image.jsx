@@ -47,7 +47,7 @@ export default class Image extends Component {
     let dataConfig10
     $.ajax({
       type:"get",
-      url:"http://localhost:9001/equip/data/buildMenu",
+      url:hostPort+"equip/data/buildMenu",
       dataType:'JSON',
       async:false,
       success:function(res){
@@ -186,7 +186,7 @@ export default class Image extends Component {
       let dataConfig10
       $.ajax({
         type:"POST",
-        url:"http://localhost:9001/equip/data/add",
+        url:hostPort+"equip/data/add",
         contentType:"application/json;charset=UTF-8",
         dataType:'JSON',
         async:false,
