@@ -58,7 +58,7 @@ onSelect = (selectedKeys, node) => {
    
     if(selectedKeys[0]){  //在这个地方判断的是是否选中了节点，如果节点选择重复，那么节点就是undefined，通过这个判断，就可以解决。
         this.props.onSelectBlock(selectedKeys[0]);  //父组件中定义的方法，在子组件中用，直接获取数据。
-        this.props.getChildrenData(selectedKeys[0],this.state.data);
+        this.props.getChildrenData(selectedKeys[0],this.props.dataConfig);
         this.props.getTreekey(selectedKeys)
         this.setState({
             selectedKey:selectedKeys[0],
@@ -114,7 +114,7 @@ onSelect = (selectedKeys, node) => {
                 onSelect={this.onSelect}
                 filterTreeNode={filterTreeNode}
                 onExpand={this.handleExpand}
-                dataSource={this.state.data}
+                dataSource={this.props.dataConfig}
                 />
                {/**  <Search shape="simple" size="small"  onChange={this.handleSearch} />   */}
                 

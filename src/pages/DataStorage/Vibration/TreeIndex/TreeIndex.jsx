@@ -36,7 +36,7 @@ onSelect = (selectedKeys, node) => {
        
         this.props.onSelectBlock(selectedKeys[0]);  //父组件中定义的方法，在子组件中用，直接获取数据。
         
-        this.props.getChildrenData(selectedKeys[0],this.state.data);
+        this.props.getChildrenData(selectedKeys[0],this.props.dataConfig);
         this.props.getTreekey(selectedKeys)
         this.setState({
             selectedKey:selectedKeys[0],
@@ -97,7 +97,7 @@ onSelect = (selectedKeys, node) => {
                 onSelect={this.onSelect}
                 filterTreeNode={filterTreeNode}
                 onExpand={this.handleExpand}
-                dataSource={this.state.data}
+                dataSource={this.props.dataConfig}
                 />
                {/**  <Search shape="simple" size="small"  onChange={this.handleSearch} />   */}
                 

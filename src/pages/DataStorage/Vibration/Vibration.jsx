@@ -36,8 +36,9 @@ export default class Vibration extends Component {
     store.subscribe(this.handleStoreChange);
   }
   handleStoreChange=()=>{
+    console.log('handlechange vibration',store.getState().DataStoragereducer.VibrationDataConfig)
     this.setState({
-      dataConfig: store.getState().VibrationDataConfig,
+      dataConfig: store.getState().DataStoragereducer.VibrationDataConfig,
     })
     console.log('handlechange vibration',this.state)
   }
@@ -61,6 +62,7 @@ export default class Vibration extends Component {
         let dataConfig2=JSON.parse(JSON.stringify(dataConfig10).replace(/"menuName"/g,' "label"'))  ;
         let dataConfig3=JSON.parse(JSON.stringify(dataConfig2).replace(/"id"/g,' "key"'))  ;
         let dataConfig1=JSON.parse(JSON.stringify(dataConfig3).replace(/"child"/g,' "children"'))   ;
+        console.log('22:22',dataConfig1)
         const action ={
           type:'VibrationComponenDidMount',
           dataConfig:dataConfig1
@@ -72,6 +74,7 @@ export default class Vibration extends Component {
   /**通过单击，来设置display，决定是否展现组件 */
 
   onSelectBlock = (url) => {
+    data1.splice(0,data1.length);
     this.setState({
       displayName: 'block',
       key: url,
@@ -84,7 +87,6 @@ export default class Vibration extends Component {
       if (key == item.key) {
         if (item.children) {
           for (i = 0; i < item.children.length; i++) {
-            data1.splice(0,data1.length);
             data1.push(
               {
                 childNode: item.children[i].label,
@@ -114,7 +116,6 @@ export default class Vibration extends Component {
     childrenData[dataIndex] = values;  //将修改后的表单数据响应的赋值进去。
     this.readData(this.state.dataConfig, childrenData, dataIndex);
   }
-
   readData = (data, childrenData, dataIndex) => {
     data.map((item, i) => {
       if (item.key == childrenData[dataIndex].childNode) {
@@ -143,25 +144,64 @@ export default class Vibration extends Component {
   changeChild = (name, code, key) => {
     const { dataConfig } = this.state
     this.dataCircleChange(this.state.dataConfig, name, code, key)
+    console.log('11:12',name,code,key, this.state.treeKey,)
   }
 
   dataCircleChange = (data, name, code, key) => {
     data.map((item, index) => {
       if (item.key == key) {
         item.label = name
-        this.setState({
-          dataConfig: this.state.dataConfig,
-        })
+        {  //树节点遍历的节点如果和当前选中的节点相同，那么就在当前选中的节点下，新增一个子节点
+          let dataConfig10
+          $.ajax({
+            type:"POST",
+            url:"http://localhost:9001/equip/data/add",
+            contentType:"application/json;charset=UTF-8",
+            dataType:'JSON',
+            async:false,
+            data:JSON.stringify({
+                "id":35,
+               // "pId":item.key,
+                "menuName":"777",
+                "dataType":"3"
+              }),
+            success:function(res){
+              console.log('11:11',res.data[2])
+              if(res.flag){
+              dataConfig10=res.data[2]
+              }
+            },
+            error:function(){
+            }
+          })
+          if(dataConfig10){
+              let dataConfig2=JSON.parse(JSON.stringify(dataConfig10).replace(/"menuName"/g,' "label"'))  ;
+              let dataConfig3=JSON.parse(JSON.stringify(dataConfig2).replace(/"id"/g,' "key"'))  ;
+              let dataConfig1=JSON.parse(JSON.stringify(dataConfig3).replace(/"child"/g,' "children"'))   ;
+              const action ={
+                type:'VibrationchangeChild',
+                dataConfig:dataConfig1
+              }
+              store.dispatch(action)
+          }else{
+            const action ={
+              type:'VibrationchangeChild',
+              dataConfig:data
+            }
+            store.dispatch(action)
+            item.children.push(addData)
+            this.setState({
+              dataConfig: this.state.dataConfig
+            })
+          }
+          }
+       
       }
       if (item.children) {
         this.dataCircleChange(item.children, name, code, key)
       }
+
       
-      const action ={
-        type:'VibrationchangeChild',
-        dataConfig:data
-      }
-      store.dispatch(action)
     })
   }
   /**新增树节点 */
@@ -170,28 +210,64 @@ export default class Vibration extends Component {
     let xinzeng = {
       label:  '新增',
     }
+    
     this.getData(this.state.dataConfig, xinzeng)
+    
   }
   getData = (data, addData) => {
     data.map((item, index) => {
+      
       if (item.children) {
         this.getData(item.children, addData)
       }
       if (item.key == this.state.treeKey) {  //树节点遍历的节点如果和当前选中的节点相同，那么就在当前选中的节点下，新增一个子节点
-       if (!item.children) {
-          item.children = []//这个地方会将以前已经创建的清空
+      
+      let dataConfig10
+      $.ajax({
+        type:"POST",
+        url:"http://localhost:9001/equip/data/add",
+        contentType:"application/json;charset=UTF-8",
+        dataType:'JSON',
+        async:false,
+        data:JSON.stringify({
+            "pId":item.key,
+            "menuName":"新增",
+            "dataType":"3"
+          }),
+        success:function(res){
+          
+          if(res.flag){
+          dataConfig10=res.data[2]
+          }
+        },
+        error:function(){
         }
+      })
+      if(dataConfig10){
+          let dataConfig2=JSON.parse(JSON.stringify(dataConfig10).replace(/"menuName"/g,' "label"'))  ;
+          let dataConfig3=JSON.parse(JSON.stringify(dataConfig2).replace(/"id"/g,' "key"'))  ;
+          let dataConfig1=JSON.parse(JSON.stringify(dataConfig3).replace(/"child"/g,' "children"'))   ;
+          const action ={
+            type:'VibrationaddChild',
+            dataConfig:dataConfig1
+          }
+          store.dispatch(action)
+      }else{
+        const action ={
+          type:'VibrationaddChild',
+          dataConfig:data
+        }
+        store.dispatch(action)
         item.children.push(addData)
         this.setState({
           dataConfig: this.state.dataConfig
         })
       }
+        
+      }
     })
-    const action ={
-      type:'VibrationaddChild',
-      dataConfig:data
-    }
-    store.dispatch(action)
+    
+    
   }
  
 

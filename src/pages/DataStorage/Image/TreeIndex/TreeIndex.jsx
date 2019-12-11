@@ -27,36 +27,7 @@ constructor(props) {
   };
   this.matchedKeys = [];
 }
-componentDidMount(){
-    let dataConfig10
-    let dataConfig1=[]
-    $.ajax({
-      type:"get",
-      url:"http://localhost:9001/equip/data/buildMenu",
-      dataType:'JSON',
-      async:false,
-      success:function(res){
-        if(res.flag){
-         console.log(res)
-         
-         dataConfig10=res.data[0]
-        }
-      },
-      error:function(){
-      }
-    })
-    if(dataConfig10){
-        let dataConfig2=JSON.parse(JSON.stringify(dataConfig10).replace(/"menuName"/g,' "label"'))  ;
-        let dataConfig3=JSON.parse(JSON.stringify(dataConfig2).replace(/"id"/g,' "key"'))  ;
-        let dataConfig=JSON.parse(JSON.stringify(dataConfig3).replace(/"child"/g,' "children"'))   ;
-        this.setState({
-            data:dataConfig
-        })
-    }
-    
-     
-     
-}
+
 
 onSelect = (selectedKeys, node) => {
     const {selectedKey} =this.state;
@@ -65,7 +36,7 @@ onSelect = (selectedKeys, node) => {
        
         this.props.onSelectBlock(selectedKeys[0]);  //父组件中定义的方法，在子组件中用，直接获取数据。
         
-        this.props.getChildrenData(selectedKeys[0],this.state.data);
+        this.props.getChildrenData(selectedKeys[0],this.props.dataConfig);
         this.props.getTreekey(selectedKeys)
         this.setState({
             selectedKey:selectedKeys[0],
@@ -126,7 +97,7 @@ onSelect = (selectedKeys, node) => {
                 onSelect={this.onSelect}
                 filterTreeNode={filterTreeNode}
                 onExpand={this.handleExpand}
-                dataSource={this.state.data}
+                dataSource={this.props.dataConfig}
                 />
                {/**  <Search shape="simple" size="small"  onChange={this.handleSearch} />   */}
                 

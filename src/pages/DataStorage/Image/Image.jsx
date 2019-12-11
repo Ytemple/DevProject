@@ -37,14 +37,45 @@ export default class Image extends Component {
     store.subscribe(this.handleStoreChange);
   }
   handleStoreChange=()=>{
+    console.log('handlechange image',store.getState().DataStoragereducer.ImageDataConfig)
     this.setState({
-      dataConfig: store.getState().ImageDataConfig,
+      dataConfig: store.getState().DataStoragereducer.ImageDataConfig,
     })
   }
+
+  componentDidMount(){
+    let dataConfig10
+    $.ajax({
+      type:"get",
+      url:"http://localhost:9001/equip/data/buildMenu",
+      dataType:'JSON',
+      async:false,
+      success:function(res){
+        console.log('10:53',res)
+        if(res.flag){
+         dataConfig10=res.data[0]
+        }
+        console.log('10:53',dataConfig10)
+      },
+      error:function(){
+      }
+    })
+    if(dataConfig10){
+        let dataConfig2=JSON.parse(JSON.stringify(dataConfig10).replace(/"menuName"/g,' "label"'))  ;
+        let dataConfig3=JSON.parse(JSON.stringify(dataConfig2).replace(/"id"/g,' "key"'))  ;
+        let dataConfig1=JSON.parse(JSON.stringify(dataConfig3).replace(/"child"/g,' "children"'))   ;
+        const action ={
+          type:'ImageComponenDidMount',
+          dataConfig:dataConfig1
+        }
+        store.dispatch(action)
+    }
+}
 
   /**通过单击，来设置display，决定是否展现组件 */
 
   onSelectBlock = (url) => {
+    data1.splice(0,data1.length);
     this.setState({
       displayName: 'block',
       key: url,
@@ -57,7 +88,6 @@ export default class Image extends Component {
       if (key == item.key) {
         if (item.children) {
           for (i = 0; i < item.children.length; i++) {
-            data1.splice(0,data1.length);
             data1.push(
               {
                 childNode: item.children[i].label,
@@ -147,27 +177,57 @@ export default class Image extends Component {
   }
   getData = (data, addData) => {
     data.map((item, index) => {
+      
       if (item.children) {
         this.getData(item.children, addData)
       }
       if (item.key == this.state.treeKey) {  //树节点遍历的节点如果和当前选中的节点相同，那么就在当前选中的节点下，新增一个子节点
-
-        if (!item.children) {
-          item.children = []//这个地方会将以前已经创建的清空
+       console.log('10:36',item.key)
+      let dataConfig10
+      $.ajax({
+        type:"POST",
+        url:"http://localhost:9001/equip/data/add",
+        contentType:"application/json;charset=UTF-8",
+        dataType:'JSON',
+        async:false,
+        data:JSON.stringify({
+            "pId":item.key,
+            "menuName":"新增",
+            "dataType":"1"
+          }),
+        success:function(res){
+          if(res.flag){
+          dataConfig10=res.data[0]
+          }
+        },
+        error:function(){
         }
-        let label, key, componentNo,isDirectory
-       
+      })
+      if(dataConfig10){
+          let dataConfig2=JSON.parse(JSON.stringify(dataConfig10).replace(/"menuName"/g,' "label"'))  ;
+          let dataConfig3=JSON.parse(JSON.stringify(dataConfig2).replace(/"id"/g,' "key"'))  ;
+          let dataConfig1=JSON.parse(JSON.stringify(dataConfig3).replace(/"child"/g,' "children"'))   ;
+          const action ={
+            type:'ImageaddChild',
+            dataConfig:dataConfig1
+          }
+          store.dispatch(action)
+      }else{
+        const action ={
+          type:'ImageaddChild',
+          dataConfig:data
+        }
+        store.dispatch(action)
         item.children.push(addData)
         this.setState({
           dataConfig: this.state.dataConfig
         })
       }
+        
+      }
     })
-    const action ={
-      type:'ImageaddChild',
-      dataConfig:data
-    }
-    store.dispatch(action)
+    
+    
   }
  
 

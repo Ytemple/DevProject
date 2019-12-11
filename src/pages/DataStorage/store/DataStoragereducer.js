@@ -70,7 +70,7 @@ const DataStoragereducer = (state=dataStorage,action)=>{
     if(action.type==='VibrationComponenDidMount'){
       const newState=JSON.parse(JSON.stringify(state));
       newState.VibrationDataConfig=action.dataConfig
-       return newState;
+      return newState;
      }
     if(action.type==='VibrationchangeChild'){
      const newState=JSON.parse(JSON.stringify(state));
@@ -88,35 +88,45 @@ const DataStoragereducer = (state=dataStorage,action)=>{
        return newState;
      }
     /** sequence */
+    if(action.type==='SequenceComponenDidMount'){
+      const newState=JSON.parse(JSON.stringify(state));
+      newState.SequenceDataConfig=action.dataConfig
+      return newState;
+     }
     if(action.type==='SequencechangeChild'){
       const newState=JSON.parse(JSON.stringify(state));
-      newState.VibrationDataConfig=action.dataConfig
+      newState.SequenceDataConfig=action.dataConfig
        return newState;
      }
      if(action.type==='SequencedeleteChild'){
       const newState=JSON.parse(JSON.stringify(state));
-      newState.VibrationDataConfig=action.dataConfig
+      newState.SequenceDataConfig=action.dataConfig
        return newState;
      }
      if(action.type==='SequenceaddChild'){
       const newState=JSON.parse(JSON.stringify(state));
-      newState.VibrationDataConfig=action.dataConfig
+      newState.SequenceDataConfig=action.dataConfig
        return newState;
      }
      /** image */
+     if(action.type==='ImageComponenDidMount'){
+      const newState=JSON.parse(JSON.stringify(state));
+      newState.ImageDataConfig=action.dataConfig
+      return newState;
+     }
      if(action.type==='ImagechangeChild'){
       const newState=JSON.parse(JSON.stringify(state));
-      newState.VibrationDataConfig=action.dataConfig
+      newState.ImageDataConfig=action.dataConfig
        return newState;
      }
      if(action.type==='ImagedeleteChild'){
       const newState=JSON.parse(JSON.stringify(state));
-      newState.VibrationDataConfig=action.dataConfig
+      newState.ImageDataConfig=action.dataConfig
        return newState;
      }
      if(action.type==='ImageaddChild'){
       const newState=JSON.parse(JSON.stringify(state));
-      newState.VibrationDataConfig=action.dataConfig
+      newState.ImageDataConfig=action.dataConfig
        return newState;
      }
 
