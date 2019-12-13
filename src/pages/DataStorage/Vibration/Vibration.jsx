@@ -155,18 +155,18 @@ export default class Vibration extends Component {
           let dataConfig10
           $.ajax({
             type:"POST",
-            url:hostPort+"equip/data/add",
+            url:hostPort+"equip/vibration/saveOrUpdate",
             contentType:"application/json;charset=UTF-8",
             dataType:'JSON',
             async:false,
             data:JSON.stringify({
-                "id":35,
-               // "pId":item.key,
-                "menuName":"777",
+                "id":33,
+               //"pId":item.key,
+                "menuName":"8888888",
                 "dataType":"3"
               }),
             success:function(res){
-              console.log('11:11',res.data[2])
+              console.log('11:11',res)
               if(res.flag){
               dataConfig10=res.data[2]
               }
@@ -279,20 +279,54 @@ export default class Vibration extends Component {
   }
   dataCircleDelete = (data, key, fatherKey, tIndex) => {
     data.map((item, index) => {
-      if (item.key == fatherKey) {
-        item.children.splice(tIndex, 1)
-        this.setState({
-          dataConfig: this.state.dataConfig,
-        })
-      }
       if (item.children) {
         this.dataCircleDelete(item.children, key, fatherKey, tIndex)
       }
-      const action ={
-        type:'VibrationdeleteChild',
-        dataConfig:data
+      if (item.key == fatherKey) {
+
+console.log('12,11 20:34',data, key, fatherKey, tIndex)
+        let dataConfig10
+
+        $.ajax({
+          type:"DELETE",
+          url:hostPort+"equip/data/delete/"+key,
+          contentType:"application/json;charset=UTF-8",
+          dataType:'JSON',
+          async:false,
+          success:function(res){
+            
+            if(res.flag){
+              console.log('20:41',res)
+           
+            }
+          },
+          error:function(){
+          }
+        })
+       
+        if(dataConfig10){
+          item.children.splice(tIndex, 1)
+          const action ={
+            type:'VibrationdeleteChild',
+            dataConfig:data
+          }
+          store.dispatch(action)
+          this.setState({
+            dataConfig: this.state.dataConfig
+          })
+        }else{
+          item.children.splice(tIndex, 1)
+          const action ={
+            type:'VibrationdeleteChild',
+            dataConfig:data
+          }
+          store.dispatch(action)
+          this.setState({
+            dataConfig: this.state.dataConfig
+          })
+        }
       }
-      store.dispatch(action)
+     
     })
   }
  
