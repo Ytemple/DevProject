@@ -22,12 +22,15 @@ export default class DataProcessing extends Component {
             displayName: 'none',
           })
     }
+/**保存要执行的模型 */
     handleSave=()=>{
       const action={
         type:'handleSave',
       }
       store.dispatch(action)
+      //在这里返回新的state，然后把新的state中存的值来进行ajax连接
     }
+
     render(){
         let {page} =this.state
         function content() {

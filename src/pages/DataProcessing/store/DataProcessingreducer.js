@@ -94,23 +94,7 @@ const defaultState = {
 }
 //reducer可以接受state，但是不能修改state，所以必须要拷贝一份
 const DataProcessingreducer = (state=defaultState,action)=>{
-    if(action.type===CHANGE_INPUT_VALUE){
-        const newState=JSON.parse(JSON.stringify(state));
-        newState.inputValue=action.value;
-        return newState;  //返回的数据给到了store
-    }
-    if(action.type===ADD_TODO_ITEM){
-        const newState=JSON.parse(JSON.stringify(state));
-        newState.list.push(newState.inputValue);
-        newState.inputValue='';
-        console.log(newState)
-        return newState;
-    }
-    if(action.type===DELETE_TODO_ITEM){
-        const newState=JSON.parse(JSON.stringify(state));
-        newState.list.splice(action.index,1)
-        return newState;
-    }
+   /** 表示的是拖拽窗口中的数据，在进行拖拽时，数据发生变化     dataprocessing/drag/components/boardlist/index    */
     if(action.type==='shouldReceiveNewData'){
        let newState=JSON.parse(JSON.stringify(state));
        newState.cardData=action.nextData
@@ -119,19 +103,30 @@ const DataProcessingreducer = (state=defaultState,action)=>{
        })
        return newState;
     }
+
+    if(action.type==='componentDidMountModel'){
+      let newState=JSON.parse(JSON.stringify(state));
+      
+      return newState;
+    }
+
+
+    /** 执行模型    dataprocessing/list/modelcards/index.jsx  */
     if(action.type==='executeModel'){
       let newState=JSON.parse(JSON.stringify(state));
       newState.step.step=0
-      newState.cardData.lanes[1].cards=newState.list[action.index].cards//把列表中的cads赋值给执行顺序列表中
+      newState.cardData.lanes[1].cards=newState.list[action.index].cards//把列表中的cards赋值给执行顺序列表中
       
       newState.step.cardIndex=action.index
       return newState;
     }
+     /** 删除保存的模型列表       dataprocessing/list/modelcards/index.jsx*/
    if(action.type==='deleteModel'){
     let newState=JSON.parse(JSON.stringify(state));
     newState.list.splice(action.index,1)
     return newState;
    }
+    /** 创建新的模型       dataprocessing/list/modelcards/index.jsx*/
    if(action.type==='NewModel'){
     let newState=JSON.parse(JSON.stringify(state));
     newState.list.push(action.newList)
@@ -153,6 +148,7 @@ const DataProcessingreducer = (state=defaultState,action)=>{
     }
     return newState;
    }
+   /**保存要执行的模型   dataprocessing/dataprocessing.jsx   */
    if(action.type==='handleSave'){
     let newState=JSON.parse(JSON.stringify(state));
     newState.list[newState.step.cardIndex].cards=newState.cardData.lanes[1].cards;

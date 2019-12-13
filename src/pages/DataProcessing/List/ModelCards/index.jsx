@@ -41,6 +41,15 @@ export default class ModelCards extends Component {
     });
     console.log('handleStoreChange',this.state)
   }
+  
+  componentDidMount(){
+    const action={
+      type:'componentDidMountModel',
+    }
+    store.dispatch(action)
+  }
+
+  /**执行模型 */
   executeModel=(index)=>{
     const action={
       type:'executeModel',
@@ -48,6 +57,7 @@ export default class ModelCards extends Component {
     }
     store.dispatch(action)
   }
+  /** 新建模型 */
   NewModel=(values)=>{
     let i=100
     const newList={
@@ -66,7 +76,7 @@ export default class ModelCards extends Component {
   onSearch=(v)=> {
     console.log(v);
   }
-
+/** 删除模型 */
   deleteModel=(index)=>{
     const action={
       type:'deleteModel',
