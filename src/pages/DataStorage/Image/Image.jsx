@@ -10,6 +10,9 @@ import Table2 from './Table2/index'
 import store from '../../Store/index'
 import PropTypes from 'prop-types';
 import {headerToken,hostPort} from '../../../Common'
+import styles from './Image.scss';
+
+
 let data1 = [];
 let n1 = 1111;
 let i = 100000000
@@ -261,6 +264,7 @@ export default class Image extends Component {
     return (
       <div className="home-page" style={styles.homePage}>
         <TreeIndex
+        className={styles.tree}
           dataConfig={this.state.dataConfig}
           onSelectBlock={this.onSelectBlock}
           getChildrenData={this.getChildrenData}
