@@ -230,29 +230,57 @@ export default class Sequence extends Component {
 
   /**删除树节点 */
   deleteChild = (value, tIndex) => {
-    console.log('20:00')
-    console.log(value)
     this.dataCircleDelete(this.state.dataConfig, value.treeTableKey, this.state.treeKey, tIndex)
   }
   dataCircleDelete = (data, key, fatherKey, tIndex) => {
     data.map((item, index) => {
-      if (item.key == fatherKey) {
-        item.children.splice(tIndex, 1)
-
-        this.setState({
-          dataConfig: this.state.dataConfig,
-        })
-
-      }
       if (item.children) {
         this.dataCircleDelete(item.children, key, fatherKey, tIndex)
       }
+      if (item.key == fatherKey) {
+        let dataConfig10
+
+        $.ajax({
+          type:"DELETE",
+          url:hostPort+"equip/data/delete/"+key,
+          contentType:"application/json;charset=UTF-8",
+          dataType:'JSON',
+          async:false,
+          success:function(res){
+            
+            if(res.flag){
+              console.log('20:41',res)
+           
+            }
+          },
+          error:function(){
+          }
+        })
+       
+        if(dataConfig10){
+          item.children.splice(tIndex, 1)
+          const action ={
+            type:'SequencedeleteChild',
+            dataConfig:data
+          }
+          store.dispatch(action)
+          this.setState({
+            dataConfig: this.state.dataConfig
+          })
+        }else{
+          item.children.splice(tIndex, 1)
+          const action ={
+            type:'SequencedeleteChild',
+            dataConfig:data
+          }
+          store.dispatch(action)
+          this.setState({
+            dataConfig: this.state.dataConfig
+          })
+        }
+      }
+     
     })
-    const action ={
-      type:'SequencedeleteChild',
-      dataConfig:data
-    }
-    store.dispatch(action)
   }
  
 
