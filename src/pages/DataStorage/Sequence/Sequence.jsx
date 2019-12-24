@@ -39,18 +39,21 @@ export default class Sequence extends Component {
     this.setState({
       dataConfig: store.getState().DataStoragereducer.SequenceDataConfig,
     })
+    console.log('sequence changed', store.getState().DataStoragereducer.SequenceDataConfig)
   }
 
   componentDidMount(){
     let dataConfig10
     $.ajax({
       type:"get",
-      url:hostPort+"equip/data/buildMenu",
+      url:hostPort+"equip/menu/buildMenu",
+      contentType:"application/json;charset=UTF-8",
       dataType:'JSON',
       async:false,
       success:function(res){
         if(res.flag){
          dataConfig10=res.data[1]
+         console.log('11:58',res.data[1])
         }
       },
       error:function(){
@@ -131,7 +134,50 @@ export default class Sequence extends Component {
   getTreekey = (Key) => {
     const valueList = [
     ];
-   
+  
+  let table={
+  }
+  let tableList = []
+  $.ajax({
+    type:"POST",
+    url:hostPort+"equip/file/selectPage",
+    contentType:"application/json;charset=UTF-8",
+    dataType:'JSON',
+    async:false,
+    data:JSON.stringify({
+      "pageNo":1,
+      "pageSize":10,
+      "queryParameter":
+      {
+        "dataId":Key[0],
+      }
+    }),
+    success:function(res){
+      if(res.flag){
+        res.data.pageList.map((item,index)=>{
+          tableList.push({
+            id:item.id,
+            name:item.fileName,
+            downloadURL:hostPort+'equip/file/download/'+item.id
+        })
+       })
+      }
+    },
+    error:function(){
+    }
+  })
+  if(tableList){
+    const action ={
+        type:'getSequenceTreekey',
+        key:Key[0],
+        tableList
+      }
+    store.dispatch(action)
+}
+
+
+
+
     this.setState({
       treeKey: Key[0],
       FileValue: valueList
@@ -148,14 +194,56 @@ export default class Sequence extends Component {
   dataCircleChange = (data, name, code, key) => {
    
     data.map((item, index) => {
+      if (item.children) {
+        this.dataCircleChange(item.children, name, code, key)
+      }
       if (item.key == key) {
         item.label = name
+        let dataConfig10
+        $.ajax({
+          type:"POST",
+          url:hostPort+"equip/menu/saveOrUpdate",
+          contentType:"application/json;charset=UTF-8",
+          dataType:'JSON',
+          async:false,
+          data:JSON.stringify({
+              id:item.key,
+              "menuName":item.label,
+              "dataType":"2"
+            }),
+          success:function(res){
+            
+            if(res.flag){
+            dataConfig10=res.data[1]
+            }
+          },
+          error:function(){
+          }
+        })
+        if(dataConfig10){
+            let dataConfig2=JSON.parse(JSON.stringify(dataConfig10).replace(/"menuName"/g,' "label"'))  ;
+            let dataConfig3=JSON.parse(JSON.stringify(dataConfig2).replace(/"id"/g,' "key"'))  ;
+            let dataConfig1=JSON.parse(JSON.stringify(dataConfig3).replace(/"child"/g,' "children"'))   ;
+          
+            const action ={
+              type:'SequenceaddChild',
+              dataConfig:dataConfig1
+            }
+            store.dispatch(action)
+        }else{
+          const action ={
+            type:'SequenceaddChild',
+            dataConfig:data
+          }
+          store.dispatch(action)
+          item.children.push(addData)
+          this.setState({
+            dataConfig: this.state.dataConfig
+          })
+        }
         this.setState({
           dataConfig: this.state.dataConfig,
         })
-      }
-      if (item.children) {
-        this.dataCircleChange(item.children, name, code, key)
       }
     })
     const action ={
@@ -184,7 +272,7 @@ export default class Sequence extends Component {
       let dataConfig10
       $.ajax({
         type:"POST",
-        url:hostPort+"equip/data/add",
+        url:hostPort+"equip/menu/saveOrUpdate",
         contentType:"application/json;charset=UTF-8",
         dataType:'JSON',
         async:false,
@@ -242,7 +330,7 @@ export default class Sequence extends Component {
 
         $.ajax({
           type:"DELETE",
-          url:hostPort+"equip/data/delete/"+key,
+          url:hostPort+"equip/menu/delete/"+key,
           contentType:"application/json;charset=UTF-8",
           dataType:'JSON',
           async:false,
@@ -303,7 +391,7 @@ export default class Sequence extends Component {
             addChild={this.addChild}
             deleteChild={this.deleteChild}
           ></Table1>
-          <Table2>
+          <Table2 pid={this.state.treeKey}> 
             
           </Table2>
         </div>

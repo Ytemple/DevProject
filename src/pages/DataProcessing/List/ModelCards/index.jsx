@@ -5,7 +5,8 @@ import {  Button,Search } from '@alifd/next';
 import { Link } from 'react-router-dom';
 import store from '../../../Store/index'
 import NewDialog from '../NewDialog'
-
+import $ from 'jquery'
+import {headerToken,hostPort} from '../../../../Common'
 const { Row, Col } = Grid;
 const dataSet = [{
   title:'模型',
@@ -43,10 +44,34 @@ export default class ModelCards extends Component {
   }
   
   componentDidMount(){
-    const action={
-      type:'componentDidMountModel',
+    let rdata
+    $.ajax({
+      type:"get",
+      url:hostPort+"equip/process/findAll",
+      dataType:'JSON',
+      async:false,
+      success:function(res){
+        if(res.flag){
+         console.log('12,13 16:02',res.data)
+         rdata=res.data
+        }
+      },
+      error:function(){
+      }
+    })
+    if(rdata){
+      const action={
+        type:'componentDidMountModel',
+        list:rdata
+      }
+      store.dispatch(action)
+    }else{
+      const action={
+        type:'componentDidMountModel',
+      }
+      store.dispatch(action)
     }
-    store.dispatch(action)
+    
   }
 
   /**执行模型 */
@@ -59,6 +84,31 @@ export default class ModelCards extends Component {
   }
   /** 新建模型 */
   NewModel=(values)=>{
+    let rdata
+    $.ajax({
+      type:"POST",
+      url:hostPort+"equip/process/saveOrUpdate",
+      contentType:"application/json;charset=UTF-8",
+      dataType:'JSON',
+      async:false,
+      data:JSON.stringify({
+       // "id": 1,
+        "name": values,
+        "algorithm": "111",
+        "creator": "111",
+        "cards": [
+        ],
+        "title": values,
+        "description": values,
+        }),
+      success:function(res){
+        if(res.flag){
+         rdata=res.data
+        }
+      },
+      error:function(){
+      }
+    })
     let i=100
     const newList={
       id:i++,
@@ -66,11 +116,19 @@ export default class ModelCards extends Component {
       cards: [
       ],
     }
-    const action={
-      type:'NewModel',
-      newList
+    if(rdata){
+      const action={
+        type:'NewModel',
+        newList:rdata
+      }
+      store.dispatch(action)
+    }else{
+      const action={
+        type:'NewModel',
+        newList:newList
+      }
+      store.dispatch(action)
     }
-    store.dispatch(action)
   }
 
   onSearch=(v)=> {
@@ -78,6 +136,21 @@ export default class ModelCards extends Component {
   }
 /** 删除模型 */
   deleteModel=(index)=>{
+    let rdata
+    $.ajax({
+      type:"Delete",
+      url:hostPort+"equip/process/delete/"+index,
+      contentType:"application/json;charset=UTF-8",
+      dataType:'JSON',
+      async:false,
+      success:function(res){
+        if(res.flag){
+        console.log('16:34',res)
+        }
+      },
+      error:function(){
+      }
+    })
     const action={
       type:'deleteModel',
       index
@@ -113,12 +186,12 @@ export default class ModelCards extends Component {
                 </div>
                 <div className={styles.footer}>
                   <Link to="/DataProcessing" >
-                 <Button className={styles.lightBlue } onClick={this.executeModel.bind(this,index)} index={index}>
+                 <Button className={styles.lightBlue } onClick={this.executeModel.bind(this,data.id)} index={data.id}>
                     调用示例
                   </Button>
                   </Link>
                   <a className={styles.green }>在线预测</a>
-                  <Button className={styles.lightBlue } onClick={this.deleteModel.bind(this,index)} index={index}>
+                  <Button className={styles.lightBlue } onClick={this.deleteModel.bind(this,data.id)} index={data.id}>
                     删除
                   </Button>
                 </div>

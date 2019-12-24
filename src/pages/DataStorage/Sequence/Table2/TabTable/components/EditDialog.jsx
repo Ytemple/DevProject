@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import { Dialog, Button, Form, Input, Field } from '@alifd/next';
 import PropTypes from 'prop-types';
-
+import $ from 'jquery'
+import {headerToken,hostPort} from '../../../../../../Common'
+import FileTable from './FileTable/index'
 const FormItem = Form.Item;
 
 export default class EditDialog extends Component {
@@ -40,6 +42,8 @@ export default class EditDialog extends Component {
   };
 
   onOpen = (index, record) => {
+    
+   
     this.field.setValues({ ...record });
     this.setState({
       visible: true,
@@ -72,17 +76,20 @@ export default class EditDialog extends Component {
           type="primary"
           onClick={() => this.onOpen(index, record)}
         >
-          编辑
+          查看
         </Button>
         <Dialog
           style={{ width: 640 }}
           visible={this.state.visible}  //通过在这儿的设置，实现了是否使得视图可见
-          onOk={this.handleSubmit}
+       //   onOk={this.handleSubmit}
           closeable="esc,mask,close"
           onCancel={this.onClose}
           onClose={this.onClose}
           title="编辑"
+          isFullScreen
         >
+          <FileTable id={this.props.record.id}/> {/** 这个传入的id是所选中项的id */}
+{/** 
           <Form field={this.field}>
             <FormItem label="子文件夹：" {...formItemLayout}>
               <Input
@@ -125,6 +132,7 @@ export default class EditDialog extends Component {
             </FormItem>
 
           </Form>
+    */}
         </Dialog>
       </div>
     );

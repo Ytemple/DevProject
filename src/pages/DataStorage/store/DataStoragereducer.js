@@ -44,27 +44,25 @@ const dataStorage={
         },
       ],
     },
-  ]
+  ],
+  sequenceFile:[{
+            name: 'IMG.png',
+            state: 'done',
+            size: 1024,
+            downloadURL: 'https://img.alicdn.com/tps/TB19O79MVXXXXcZXVXXXXXXXXXX-1024-1024.jpg',
+            fileURL: 'https://img.alicdn.com/tps/TB19O79MVXXXXcZXVXXXXXXXXXX-1024-1024.jpg',
+            imgURL: 'https://img.alicdn.com/tps/TB19O79MVXXXXcZXVXXXXXXXXXX-1024-1024.jpg'
+  }],
+  sequenceTable:[
+    {
+      name:'数据存储管理'
+    }
+  ],
+  key:'',//当前选中的树节点
+  fileID:'',//当前选中的处理文件的ID
 }
 //reducer可以接受state，但是不能修改state，所以必须要拷贝一份
 const DataStoragereducer = (state=dataStorage,action)=>{
-    if(action.type===CHANGE_INPUT_VALUE){
-        const newState=JSON.parse(JSON.stringify(state));
-        newState.inputValue=action.value;
-        return newState;  //返回的数据给到了store
-    }
-    if(action.type===ADD_TODO_ITEM){
-        const newState=JSON.parse(JSON.stringify(state));
-        newState.list.push(newState.inputValue);
-        newState.inputValue='';
-        console.log(newState)
-        return newState;
-    }
-    if(action.type===DELETE_TODO_ITEM){
-        const newState=JSON.parse(JSON.stringify(state));
-        newState.list.splice(action.index,1)
-        return newState;
-    }
     
     /** vibration */
     if(action.type==='VibrationComponenDidMount'){
@@ -93,7 +91,7 @@ const DataStoragereducer = (state=dataStorage,action)=>{
       newState.SequenceDataConfig=action.dataConfig
       return newState;
      }
-    if(action.type==='SequencechangeChild'){
+    if(action.type==='SequencechangeChild'){  //编辑时序节点
       const newState=JSON.parse(JSON.stringify(state));
       newState.SequenceDataConfig=action.dataConfig
        return newState;
@@ -103,11 +101,32 @@ const DataStoragereducer = (state=dataStorage,action)=>{
       newState.SequenceDataConfig=action.dataConfig
        return newState;
      }
-     if(action.type==='SequenceaddChild'){
+     if(action.type==='SequenceaddChild'){ 
       const newState=JSON.parse(JSON.stringify(state));
       newState.SequenceDataConfig=action.dataConfig
        return newState;
      }
+
+     if(action.type==='getSequenceTreekey'){
+      const newState=JSON.parse(JSON.stringify(state));
+      newState.key=action.key
+      newState.sequenceTable=action.tableList
+      newState.sequenceFile=action.tableList
+      console.log('19:09',newState.key)
+       return newState;
+     }
+     if(action.type==='sequenceFileComponenDidMount'){
+      const newState=JSON.parse(JSON.stringify(state));
+      newState.sequenceFile=action.list
+       return newState;
+     }
+     if(action.type==='sequenceFileUpload'){
+      const newState=JSON.parse(JSON.stringify(state));
+      Array.prototype.push.apply(newState.sequenceFile,action.list);
+      Array.prototype.push.apply(newState.sequenceTable,action.list);
+       return newState;
+     }
+    
      /** image */
      if(action.type==='ImageComponenDidMount'){
       const newState=JSON.parse(JSON.stringify(state));

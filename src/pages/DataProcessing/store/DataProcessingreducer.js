@@ -103,10 +103,12 @@ const DataProcessingreducer = (state=defaultState,action)=>{
        })
        return newState;
     }
-
+/** 初始化加载 */
     if(action.type==='componentDidMountModel'){
       let newState=JSON.parse(JSON.stringify(state));
-      
+      if(action.list){
+        newState.list=action.list
+      }
       return newState;
     }
 
@@ -115,20 +117,30 @@ const DataProcessingreducer = (state=defaultState,action)=>{
     if(action.type==='executeModel'){
       let newState=JSON.parse(JSON.stringify(state));
       newState.step.step=0
-      newState.cardData.lanes[1].cards=newState.list[action.index].cards//把列表中的cards赋值给执行顺序列表中
+      newState.list.map((item,index)=>{
+        if(item.id==action.index){
+          newState.cardData.lanes[1].cards=newState.list[index].cards//把列表中的cards赋值给执行顺序列表中      
+          newState.step.cardIndex=index
+        }
+      })
       
-      newState.step.cardIndex=action.index
       return newState;
     }
      /** 删除保存的模型列表       dataprocessing/list/modelcards/index.jsx*/
    if(action.type==='deleteModel'){
     let newState=JSON.parse(JSON.stringify(state));
-    newState.list.splice(action.index,1)
+    console.log('17:09',newState)
+    newState.list.map((item,index)=>{
+      if(item.id==action.index){
+        newState.list.splice(index,1)
+      }
+    })
     return newState;
    }
     /** 创建新的模型       dataprocessing/list/modelcards/index.jsx*/
    if(action.type==='NewModel'){
     let newState=JSON.parse(JSON.stringify(state));
+    
     newState.list.push(action.newList)
     return newState;
    }

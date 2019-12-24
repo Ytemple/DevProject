@@ -4,22 +4,22 @@ import { Tab } from '@alifd/next';
 import CustomTable from './components/CustomTable';
 import EditDialog from './components/EditDialog';
 import DeleteBalloon from './components/DeleteBalloon';
-import data from './data';
+//import data from './data';
 import {Button} from '@alifd/next';
 import { Link } from 'react-router-dom';
 import NewDialog from './components/NewDialog';
 import PropTypes from 'prop-types';
+import $ from 'jquery'
+import {headerToken,hostPort} from '../../../../../Common'
+import store from '../../../../Store/index'
+
+let data =  [{
+  childNode:'数据存储管理'
+}];
 
 let i=10000;
 export default class Table extends Component {
   static displayName = 'Table';
-  /**
-  static contextTypes={
-    changeChild:PropTypes.func,
-    newChild:PropTypes.func,
-    deleteChild:PropTypes.func,
-    }
-     */
   static propTypes = {};
 
   static defaultProps = {};
@@ -27,38 +27,20 @@ export default class Table extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      dataSource:data
+      dataSource: store.getState().DataStoragereducer.sequenceTable,
     };
-
-    
-
-    this.columns = [
+    store.subscribe(this.handleStoreChange);
+       this.columns = [
       {
         title: '文件名',
-        dataIndex: 'childNode',
-        key: 'childNode',
+        dataIndex: 'name',
+        key: 'name',
       },
       {
         title: '所属设备',
-        dataIndex: 'childNode',
-        key: 'childNode',
+        dataIndex: 'name',
+        key: 'name',
       },
-      {
-        title: '样品单位',
-        dataIndex: 'childNode',
-        key: 'childNode',
-      },
-      {
-        title: '实验方式',
-        dataIndex: 'childNode',
-        key: 'childNode',
-      },
-      {
-        title: '创造时间',
-        dataIndex: 'childNode',
-        key: 'childNode',
-      },
-      
      
       {
         title: '操作',
@@ -80,6 +62,12 @@ export default class Table extends Component {
       },
     ];
   }
+  handleStoreChange=()=>{
+    this.setState({
+      dataSource: store.getState().DataStoragereducer.sequenceTable,
+    })
+  //console.log('17:04 sequence changed', store.getState().DataStoragereducer.sequenceTable)
+}
 
  
 /**编辑 */
@@ -91,7 +79,7 @@ export default class Table extends Component {
       dataSource,
     });
     
-  this.props.changeChild(values.childNode,values.componentCode,this.props.childrenData[dataIndex].treeTableKey); 
+  //this.props.changeChild(values.childNode,values.componentCode,this.props.childrenData[dataIndex].treeTableKey); 
   };
 /**删除 */
   handleRemove = (value, index) => {

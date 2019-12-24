@@ -20,8 +20,9 @@ export default class DeleteBalloon extends Component {
   }
 
   handleHide = (visible, code) => {
+    
     if (code === 1) {
-      this.props.handleRemove();
+     // this.props.handleRemove();
     }
     this.setState({
       visible: false,

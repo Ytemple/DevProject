@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-
+import TableExtraction from '../../../FeatureExtraction/FeatureExtraction/TableExtraction/index' 
 export default class FeatureExtraction extends Component {
   constructor(props) {
     super(props);
@@ -9,7 +9,7 @@ export default class FeatureExtraction extends Component {
   render() {
     return (
       <div className="FeatureExtraction">
-      特征提取
+      <TableExtraction />
       </div>
     );
   }

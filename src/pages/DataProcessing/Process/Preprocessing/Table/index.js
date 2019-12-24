@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import TabTable from './components/TabTable';
-
+import Table2 from '../../../../Preprocessing/Preprocessing/Table2/index'
 export default class TableInfo extends Component {
   constructor(props) {
     super(props);
@@ -10,7 +10,7 @@ export default class TableInfo extends Component {
   render() {
     return (
       <div className="page2-page">
-        <TabTable />
+        <Table2 />
       </div>
     );
   }

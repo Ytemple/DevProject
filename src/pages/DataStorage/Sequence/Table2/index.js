@@ -17,14 +17,15 @@ export default class Table2 extends Component {
 
   constructor(props) {
     super(props);
+    console.log('17:38',this.props)
     this.state = {
     };
   }
 
   render() {
     const tabs = [
-      { tab: '数据展示', key: '1', content: <Table /> },
-      { tab: '数据上传', key: '2', content: <UploadFile /> },
+      { tab: '数据展示', key: '1', content: <Table pid={this.props.pid} /> },
+      { tab: '数据上传', key: '2', content: <UploadFile pid={this.props.pid} /> },
     ];
 
     return (
