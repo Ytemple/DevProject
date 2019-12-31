@@ -13,7 +13,11 @@ import Preprocessing from '../src/pages/Preprocessing/Preprocessing/index'//数�
 import FeatureExtraction from '../src/pages/FeatureExtraction/FeatureExtraction/index' //数据挖掘/特征提取
 import FeatureScreening from '../src/pages/FeatureScreening/FeatureScreening/FeatureScreening'  //数据挖掘/特征筛选
 import TableTimeFrequency from '../src/pages/TimeFrequency/index'    //数据挖掘/时频图像转换
-import TagManagement from '../src/pages/TagManagement/index'  //智能模型训练与校验
+import TagManagement from '../src/pages/TagManagement/index'  //智能模型训练与校验/标签管理
+import modelTraining from '../src/pages/modelTraining/index'  //智能模型训练与校验/模型训练
+import modelCheck from '../src/pages/modelCheck/index'  //智能模型训练与校验/模型校验
+
+import lifePredection from '../src/pages/lifePrediction/index'  //智能模型训练与校验/模型校验
 
 const routerConfig = [
   {
@@ -80,11 +84,17 @@ const routerConfig = [
 
 
 
+      {
+        path: '/modelTraining',
+        component: modelTraining,
+      },
 
 
 
-
-
+      {
+        path: '/lifePredection',
+        component: lifePredection,
+      },
 
       {
         path: '/',

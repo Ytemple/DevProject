@@ -1,8 +1,17 @@
 import React, { Component } from 'react';
-import { Dialog, Button, Form, Input, Field,Select } from '@alifd/next';
+import { Dialog, Button, Form, Input, Field,Select,Radio } from '@alifd/next';
 
 const FormItem = Form.Item;
 const Option = Select.Option;
+const RadioGroup = Radio.Group;
+const record ={
+  algorithm: "",
+  aisle: "",
+  sampleNumber: "",
+  createDate: "",
+  createPerson: "",
+  dataSource: ""
+}
 export default class Preprocessing extends Component {
   static displayName = 'Preprocessing';
 
@@ -70,7 +79,7 @@ export default class Preprocessing extends Component {
           数据预处理
         </Button>
         <Dialog
-          style={{ width: 640 }}
+          style={{ width: 840 }}
           visible={this.state.visible}  //通过在这儿的设置，实现了是否使得视图可见
           onOk={this.handleSubmit}
           closeable="esc,mask,close"
@@ -92,30 +101,26 @@ export default class Preprocessing extends Component {
             </FormItem>
 
             <FormItem label="采样通道：" {...formItemLayout}>
-                  <Select  style={{width: '100%'}}>
-                            <Option value="small">采样通道1</Option>
-                            <Option value="medium">采样通道2</Option>
-                            <Option value="large">采样通道3</Option>
+            <Select  
+                    {...init('aisle', {
+                     
+                    })}
+                    style={{width: '100%'}}>
+                            <Option value="small">算法1</Option>
+                            <Option value="medium">算法2</Option>
+                            <Option value="large">算法3</Option>
                     </Select>
             </FormItem>
 
             <FormItem label="采样次数：" {...formItemLayout}>
               <Input
-                {...init('productModel', {
+                {...init('sampleNumber', {
                   rules: [{ required: true, message: '必填选项' }],
                 })}
               />
             </FormItem>
 
-            <FormItem label="发布时间：" {...formItemLayout}>
-              <Input
-                {...init('productType', {
-                  rules: [{ required: true, message: '必填选项' }],
-                })}
-              />
-            </FormItem>
-
-            <FormItem label="新建日期：" {...formItemLayout}>
+            <FormItem label="处理日期：" {...formItemLayout}>
               <Input
                 {...init('createDate', {
                   rules: [{ required: true, message: '必填选项' }],
@@ -123,7 +128,7 @@ export default class Preprocessing extends Component {
               />
             </FormItem>
 
-            <FormItem label="新建人：" {...formItemLayout}>
+            <FormItem label="处理人：" {...formItemLayout}>
               <Input
                 {...init('createPerson', {
                   rules: [{ required: true, message: '必填选项' }],
@@ -131,13 +136,23 @@ export default class Preprocessing extends Component {
               />
             </FormItem>
 
-            <FormItem label="描述：" {...formItemLayout}>
-              <Input
-                {...init('describe', {
-                  rules: [{ required: true, message: '必填选项' }],
-                })}
-              />
-            </FormItem>
+            <FormItem
+                    label="数据源:"
+                    hasFeedback
+                    required
+                    requiredMessage="Please select your gender"
+                    {...formItemLayout}
+                >
+                    <RadioGroup 
+                    {...init('dataSource', {
+                    rules: [{ required: true, message: '必填选项' }],
+                  })}
+                    >
+                        <Radio value="原始文件">原始文件</Radio>
+                        <Radio value="结果文件">结果文件</Radio>
+                    </RadioGroup>
+                </FormItem>
+
           </Form>
         </Dialog>
       </div>

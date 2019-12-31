@@ -11,8 +11,8 @@ import Preprocessing from './components/Preprocessing';
 import PropTypes from 'prop-types';
 
 let i=10000;
-export default class TimeFrequencyDomain extends Component {
-  static displayName = 'TimeFrequencyDomain';
+export default class Table extends Component {
+  static displayName = 'Table';
  
   static propTypes = {};
 
@@ -29,19 +29,45 @@ export default class TimeFrequencyDomain extends Component {
     this.columns = [
       
       {
-        title: '数据名称',
-        dataIndex: 'name',
-        key: 'name',
+        title: '数据集名称',
+        dataIndex: 'childNode',
+        key: 'childNode',
+      },
+     
+      {
+        title: '算法',
+        dataIndex: 'childNode',
+        key: 'childNode',
       },
       {
-        title: '处理方法',
-        dataIndex: 'approach',
-        key: 'approach',
+        title: '卷积层数',
+        dataIndex: 'childNode',
+        key: 'childNode',
       },
       {
-        title: '处理结果',
-        dataIndex: 'result',
-        key: 'result',
+        title: '池化层数',
+        dataIndex: 'childNode',
+        key: 'childNode',
+      },
+      {
+        title: '学习率',
+        dataIndex: 'childNode',
+        key: 'childNode',
+      },
+      {
+        title: '优化器',
+        dataIndex: 'childNode',
+        key: 'childNode',
+      },
+      {
+        title: '训练精度',
+        dataIndex: 'childNode',
+        key: 'childNode',
+      },
+      {
+        title: '训练时间',
+        dataIndex: 'childNode',
+        key: 'childNode',
       },
       {
         title: '操作',
@@ -49,17 +75,16 @@ export default class TimeFrequencyDomain extends Component {
         render: (value, index, record) => {
           return (
             <span>
+            {/**
               <EditDialog
                 index={index}
                 record={record}
                 getFormValues={this.getFormValues}
               />
-              <Preprocessing />
-              {/**
-              <DeleteBalloon
-                handleRemove={() => this.handleRemove(value, index, record)}
-              />
                */}
+              <Preprocessing />
+
+
             </span>
           );
         },

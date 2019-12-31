@@ -26,10 +26,9 @@ xhr.onreadystatechange = function(){
 */
 //为什么使用ajax就可以，但是使用传统的方法就不行了呢
 let data =  [{
-  name:'数据名称',
-  approach:'处理方法',
-  result:'处理结果'
+  childNode:'时频图像转换'
 }];
+
  
 /**
 $.ajax({

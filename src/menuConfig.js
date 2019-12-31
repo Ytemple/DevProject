@@ -49,8 +49,8 @@ const asideMenuConfig = [
     children: [
       { name: '标签管理', path: '/TagManagement' },
       { name: '数据集构建', path: '/application/5' },
-      { name: '模型训练', path: '/application/6' },
-      { name: '模型校验', path: '/application/7' },
+      { name: '模型训练', path: '/modelTraining' },
+      { name: '模型校验', path: '/modelCheck' },
     ],
   },
   {
@@ -60,7 +60,7 @@ const asideMenuConfig = [
     children: [
       { name: '异常感知', path: '/application/8' },
       { name: '故障诊断', path: '/application/9' },
-      { name: '寿命预测', path: '/application/10' },
+      { name: '寿命预测', path: '/lifePredection' },
     ],
   },
  

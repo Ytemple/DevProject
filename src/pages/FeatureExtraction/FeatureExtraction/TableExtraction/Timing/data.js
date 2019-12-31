@@ -26,9 +26,10 @@ xhr.onreadystatechange = function(){
 */
 //为什么使用ajax就可以，但是使用传统的方法就不行了呢
 let data =  [{
-  childNode:'数据预处理'
+  name:'数据名称',
+  approach:'处理方法',
+  result:'处理结果'
 }];
-
  
 /**
 $.ajax({

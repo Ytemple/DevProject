@@ -29,15 +29,19 @@ export default class TimeDomain extends Component {
     this.columns = [
       
       {
-        title: '时域特征提取',
-        dataIndex: 'childNode',
-        key: 'childNode',
+        title: '数据名称',
+        dataIndex: 'name',
+        key: 'name',
       },
-     
+      {
+        title: '处理方法',
+        dataIndex: 'approach',
+        key: 'approach',
+      },
       {
         title: '处理结果',
-        dataIndex: 'childNode',
-        key: 'childNode',
+        dataIndex: 'result',
+        key: 'result',
       },
       {
         title: '操作',
