@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Dialog, Button, Form, Input, Field } from '@alifd/next';
 import PropTypes from 'prop-types';
+import FileTable from  './FileTable/index'
 
 const FormItem = Form.Item;
 
@@ -83,48 +84,7 @@ export default class EditDialog extends Component {
           onClose={this.onClose}
           title="编辑"
         >
-          <Form field={this.field}>
-            <FormItem label="子文件夹：" {...formItemLayout}>
-              <Input
-                {...init('childNode', {
-                  rules: [{ message: '必填选项' }],
-                })}
-              />
-            </FormItem>
-
-            <FormItem label="所属设备：" {...formItemLayout}>
-              <Input
-                {...init('componentCode', {
-                  rules: [{  message: '必填选项' }],
-                })}
-              />
-            </FormItem>
-
-            <FormItem label="样品单位：" {...formItemLayout}>
-              <Input
-                {...init('componentCode', {
-                  rules: [{  message: '必填选项' }],
-                })}
-              />
-            </FormItem>
-
-            <FormItem label="实验方式：" {...formItemLayout}>
-              <Input
-                {...init('componentCode', {
-                  rules: [{  message: '必填选项' }],
-                })}
-              />
-            </FormItem>
-
-            <FormItem label="创造时间：" {...formItemLayout}>
-              <Input
-                {...init('componentCode', {
-                  rules: [{  message: '必填选项' }],
-                })}
-              />
-            </FormItem>
-
-          </Form>
+           <FileTable id={this.props.record.id}/>
         </Dialog>
       </div>
     );

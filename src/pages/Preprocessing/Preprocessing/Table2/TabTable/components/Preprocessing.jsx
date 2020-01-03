@@ -33,7 +33,7 @@ export default class Preprocessing extends Component {
         console.log('Errors in form!!!');
         return;
       }
-
+    this.props.handleSubmit(values)
       const { dataIndex } = this.state;
      // this.props.newRow(dataIndex, values);  //父组件中定义的方法，在子组件中用，直接获取数据。
    console.log(dataIndex);  //打印输出0，1，2

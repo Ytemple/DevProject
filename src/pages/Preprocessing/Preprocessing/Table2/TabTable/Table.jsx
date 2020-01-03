@@ -9,7 +9,9 @@ import {Button} from '@alifd/next';
 import { Link } from 'react-router-dom';
 import Preprocessing from './components/Preprocessing';
 import PropTypes from 'prop-types';
-
+import store from '../../../../Store/index'
+import $ from 'jquery'
+import {headerToken,hostPort} from '../../../../../Common'
 let i=10000;
 export default class Table extends Component {
   static displayName = 'Table';
@@ -21,39 +23,37 @@ export default class Table extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      dataSource:data
+      dataSource:store.getState().Preprocessingreducer.preProcessingTable,
+      preProcessingID:store.getState().Preprocessingreducer.preProcessingID    //预处理后的文件预处理id
+
     };
-
-    
-
+    store.subscribe(this.handleStoreChange);
     this.columns = [
       {
-        title: '名称',
-        dataIndex: 'childNode',
-        key: 'childNode',
+        title: '预处理算法',
+        dataIndex: 'algorithm',
+        key: 'algorithm',
       },
       {
-        title: '预处理方法',
-        dataIndex: 'childNode',
-        key: 'childNode',
+        title: '采样通道',
+        dataIndex: 'aisle',
+        key: 'aisle',
       },
       {
-        title: '样品单位',
-        dataIndex: 'childNode',
-        key: 'childNode',
+        title: '采样次数',
+        dataIndex: 'sampleNumber',
+        key: 'sampleNumber',
       },
       {
-        title: '实验方式',
-        dataIndex: 'childNode',
-        key: 'childNode',
+        title: '处理人',
+        dataIndex: 'createPerson',
+        key: 'createPerson',
       },
       {
-        title: '创造时间',
-        dataIndex: 'childNode',
-        key: 'childNode',
+        title: '处理日期',
+        dataIndex: 'createDate',
+        key: 'createDate',
       },
-      
-     
       {
         title: '操作',
         key: 'action',
@@ -65,7 +65,7 @@ export default class Table extends Component {
                 record={record}
                 getFormValues={this.getFormValues}
               />
-              <Preprocessing />
+              <Preprocessing handleSubmit={this.handleSubmit}/>
               <DeleteBalloon
                 handleRemove={() => this.handleRemove(value, index, record)}
               />
@@ -75,17 +75,63 @@ export default class Table extends Component {
       },
     ];
   }
+  handleStoreChange=()=>{
+    this.setState({
+      dataSource:store.getState().Preprocessingreducer.preProcessingTable,
+    })
+   console.log('preprocessing changed', store.getState().Preprocessingreducer)
+  }
 
  
+/**提交数据预处理 */
+handleSubmit = (values) => {
+  let returnData
+  $.ajax({
+    type:"POST",
+    url:hostPort+"equip/dig/preProcess",
+    contentType:"application/json;charset=UTF-8",
+    dataType:'JSON',
+    async:false,
+    data:JSON.stringify({
+        "id":2,
+        "resultFileId":1211836427177398273,
+        algorithm: values.algorithm,
+        "aisle":values.aisle,
+        sampleNumber:values.sampleNumber,
+        createPerson:values.createPerson,
+        createDate:values.createDate,
+        
+      }),
+    success:function(res){
+      if(res.flag){
+      returnData=res.data
+      }
+    },
+    error:function(){
+    }
+  })
+  if(returnData){
+    const action ={
+      type:'handleSubmit',
+      returnData
+    }
+    store.dispatch(action)
+  }else{
+    const action ={
+      type:'handleSubmit',
+    }
+    store.dispatch(action)
+  }
+  
+};
+
 /**编辑 */
   getFormValues = (dataIndex, values) => {
-   
     const { dataSource } = this.state;
     dataSource[dataIndex] = values;  //将修改后的表单数据响应的赋值进去。
     this.setState({
       dataSource,
     });
-    
   this.props.changeChild(values.childNode,values.componentCode,this.props.childrenData[dataIndex].treeTableKey); 
   };
 /**删除 */
@@ -97,21 +143,6 @@ export default class Table extends Component {
       dataSource,
     });
   };
-  /**新增 */
-  addTable1=()=>{
-    i++
-    this.state.dataSource.push({
-      childNode: '新增',
-      componentCode: '新增',
-      treeTableKey:i
-    });
-    
-    this.setState({
-      dataSource: this.state.dataSource,
-    });
-    let index =this.state.dataSource.length-1
-    this.props.addChild(123)
-  }
 
 
   render() {

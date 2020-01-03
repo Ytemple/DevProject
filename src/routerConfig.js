@@ -16,7 +16,7 @@ import TableTimeFrequency from '../src/pages/TimeFrequency/index'    //数据挖
 import TagManagement from '../src/pages/TagManagement/index'  //智能模型训练与校验/标签管理
 import ModelTraining from '../src/pages/ModelTraining/index'  //智能模型训练与校验/模型训练
 import ModelCheck from '../src/pages/ModelCheck/index'  //智能模型训练与校验/模型校验
-
+  
 import LifePrediction from '../src/pages/LifePrediction/index'  //智能模型训练与校验/模型校验
 
 const routerConfig = [
