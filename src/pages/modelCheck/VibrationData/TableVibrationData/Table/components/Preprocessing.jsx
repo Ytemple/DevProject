@@ -66,7 +66,7 @@ export default class Preprocessing extends Component {
           type="primary"
           onClick={() => this.onOpen(index, record)}
         >
-         模型训练
+         模型校验
         </Button>
         <Dialog
           style={{ width:700 }}
@@ -75,58 +75,29 @@ export default class Preprocessing extends Component {
           closeable="esc,mask,close"
           onCancel={this.onClose}
           onClose={this.onClose}
-          title="打标注"
+          title="模型校验"
         >
           <Form field={this.field}>
 
+          <FormItem label="数据集名称：" {...formItemLayout}>
+              <Input
+                {...init('dataSetName', {
+                  rules: [{  message: '必填选项' }],
+                })}
+              />
+            </FormItem>
+
           <FormItem label="算法：" {...formItemLayout}>
-                    <Select  style={{width: '100%'}}>
+                    <Select  
+                     {...init('algorithm', {
+                        rules: [{ required: true, message: '必填选项' }],
+                     })}
+                    style={{width: '100%'}}>
                             <Option value="small">CNN</Option>
                             <Option value="medium">CNN</Option>
                             <Option value="large">CNN</Option>
                             <Option value="large">CNN</Option>
                     </Select>
-            </FormItem>
-
-            <FormItem label="卷积层数：" {...formItemLayout}>
-                  <Select  style={{width: '100%'}}>
-                            <Option value="small">1</Option>
-                            <Option value="medium">2</Option>
-                            <Option value="large">3</Option>
-                    </Select>
-            </FormItem>
-
-            <FormItem label="池化层数：" {...formItemLayout}>
-            <NumberPicker 
-            {...init('productModel', {
-                  rules: [{ required: true, message: '必填选项' }],
-                })}
-            defaultValue={0} type="inline" />
-            </FormItem>
-
-
-            <FormItem label="学习率：" {...formItemLayout}>
-            <NumberPicker 
-            {...init('productModel', {
-                  rules: [{ required: true, message: '必填选项' }],
-                })}
-            defaultValue={0} type="inline" />
-            </FormItem>
-
-            <FormItem label="优化器：" {...formItemLayout}>
-            <NumberPicker 
-            {...init('productModel', {
-                  rules: [{ required: true, message: '必填选项' }],
-                })}
-            defaultValue={0} type="inline" />
-            </FormItem>
-
-            <FormItem label="训练精度：" {...formItemLayout}>
-            <NumberPicker 
-            {...init('productModel', {
-                  rules: [{ required: true, message: '必填选项' }],
-                })}
-            defaultValue={0} type="inline" />
             </FormItem>
 
           </Form>

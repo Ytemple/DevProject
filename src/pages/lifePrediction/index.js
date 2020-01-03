@@ -6,8 +6,8 @@ import VibrationData from './VibrationData/index'
 
 const TabPane = Tab.Item;
 
-export default class lifePredection extends Component {
-  static displayName = 'lifePredection';
+export default class LifePredection extends Component {
+  static displayName = 'LifePredection';
 
   static propTypes = {};
 

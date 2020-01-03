@@ -30,12 +30,6 @@ const column=[
 const dataSource = () => {
   return [
     {
-      第1列: '姓名',
-      第2列: '张三',
-      第3列: 'aa',
-      第4列: 'bb',
-    },
-    {
       第1列: 'cc',
       第2列: 'dd',
       第3列: 'ee',

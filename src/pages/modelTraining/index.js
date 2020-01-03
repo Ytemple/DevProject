@@ -6,8 +6,8 @@ import VibrationData from './VibrationData/index'
 
 const TabPane = Tab.Item;
 
-export default class modalTraining extends Component {
-  static displayName = 'modalTraining';
+export default class ModalTraining extends Component {
+  static displayName = 'ModalTraining';
 
   static propTypes = {};
 

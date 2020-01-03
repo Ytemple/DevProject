@@ -6,8 +6,8 @@ import VibrationData from './VibrationData/index'
 
 const TabPane = Tab.Item;
 
-export default class modalCheck extends Component {
-  static displayName = 'modalCheck';
+export default class ModalCheck extends Component {
+  static displayName = 'ModalCheck';
 
   static propTypes = {};
 

@@ -80,7 +80,6 @@ export default class VibrationData extends Component {
       FileValue: valueList
     })
   }
-
  
 
   render() {
@@ -108,7 +107,6 @@ const styles = {
   homePage: {   //在这儿就设置了弹性，所以才有了后来项目的弹性
     display: 'flex',
     flexDirection: 'row',
-    //height: '100vh',
   },
   mainContent: {   //这个我没有找到，这个是用来设置弹性项目的
     display: 'flex',

@@ -40,32 +40,7 @@ export default class Table extends Component {
         key: 'childNode',
       },
       {
-        title: '卷积层数',
-        dataIndex: 'childNode',
-        key: 'childNode',
-      },
-      {
-        title: '池化层数',
-        dataIndex: 'childNode',
-        key: 'childNode',
-      },
-      {
-        title: '学习率',
-        dataIndex: 'childNode',
-        key: 'childNode',
-      },
-      {
-        title: '优化器',
-        dataIndex: 'childNode',
-        key: 'childNode',
-      },
-      {
-        title: '训练精度',
-        dataIndex: 'childNode',
-        key: 'childNode',
-      },
-      {
-        title: '训练时间',
+        title: '校验精度值',
         dataIndex: 'childNode',
         key: 'childNode',
       },

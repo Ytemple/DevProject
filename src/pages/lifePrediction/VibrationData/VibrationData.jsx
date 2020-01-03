@@ -1,6 +1,7 @@
 import React, { Component, PureComponent } from 'react';
 import $ from 'jquery'
 import TreeIndex from './TreeIndex/index';
+import { Dialog, Button, Form, Input, Field,Select,Upload,NumberPicker } from '@alifd/next';
 import dataConfig from './TreeIndex/dataConfig'
 import TableVibrationData from './TableVibrationData/index'
 import Table from './TableVibrationData/Table/index'
@@ -94,10 +95,6 @@ export default class VibrationData extends Component {
         ></TreeIndex>
         <div style={{ display: this.state.displayName }}>
       <Table></Table>
-        {/** 
-          <TableVibrationData>
-          </TableVibrationData>
-          */}
         </div>
       </div>
     );

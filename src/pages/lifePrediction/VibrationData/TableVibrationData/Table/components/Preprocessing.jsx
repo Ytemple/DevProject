@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
-import { Dialog, Button, Form, Input, Field,Select,NumberPicker } from '@alifd/next';
+import { Dialog, Button, Form, Input, Field,Select,Upload,NumberPicker } from '@alifd/next';
 import SelectableTable from './SelectableTable/index'
 const FormItem = Form.Item;
 const Option = Select.Option;
+const defaultValue = [];
+
 export default class Preprocessing extends Component {
   static displayName = 'Preprocessing';
 
@@ -47,6 +49,18 @@ export default class Preprocessing extends Component {
     });
   };
 
+  beforeUpload=(info)=> {
+    console.log('beforeUpload : ', info);
+  }
+
+  onChange=(info)=> {
+      console.log('onChange : ', info);
+  }
+  
+  onSuccess=(info)=> {
+      console.log('onSuccess : ', info);
+  }
+
   render() {
     const init = this.field.init;
     const { index, record } = this.props;
@@ -66,7 +80,7 @@ export default class Preprocessing extends Component {
           type="primary"
           onClick={() => this.onOpen(index, record)}
         >
-         模型训练
+         寿命预测
         </Button>
         <Dialog
           style={{ width:700 }}
@@ -75,61 +89,37 @@ export default class Preprocessing extends Component {
           closeable="esc,mask,close"
           onCancel={this.onClose}
           onClose={this.onClose}
-          title="打标注"
+          title="寿命预测"
         >
           <Form field={this.field}>
-
-          <FormItem label="算法：" {...formItemLayout}>
-                    <Select  style={{width: '100%'}}>
-                            <Option value="small">CNN</Option>
-                            <Option value="medium">CNN</Option>
-                            <Option value="large">CNN</Option>
-                            <Option value="large">CNN</Option>
-                    </Select>
-            </FormItem>
-
-            <FormItem label="卷积层数：" {...formItemLayout}>
-                  <Select  style={{width: '100%'}}>
-                            <Option value="small">1</Option>
-                            <Option value="medium">2</Option>
-                            <Option value="large">3</Option>
-                    </Select>
-            </FormItem>
-
-            <FormItem label="池化层数：" {...formItemLayout}>
-            <NumberPicker 
-            {...init('productModel', {
-                  rules: [{ required: true, message: '必填选项' }],
+          <FormItem label="数据集名称：" {...formItemLayout}>
+              <Input
+                {...init('dataSetName', {
+                  rules: [{  message: '必填选项' }],
                 })}
-            defaultValue={0} type="inline" />
+              />
             </FormItem>
 
-
-            <FormItem label="学习率：" {...formItemLayout}>
-            <NumberPicker 
-            {...init('productModel', {
-                  rules: [{ required: true, message: '必填选项' }],
+            <FormItem label="模型训练数据集：" {...formItemLayout}>
+              <Input
+                {...init('dataSetName', {
+                  rules: [{  message: '必填选项' }],
                 })}
-            defaultValue={0} type="inline" />
+              />
             </FormItem>
-
-            <FormItem label="优化器：" {...formItemLayout}>
-            <NumberPicker 
-            {...init('productModel', {
-                  rules: [{ required: true, message: '必填选项' }],
-                })}
-            defaultValue={0} type="inline" />
-            </FormItem>
-
-            <FormItem label="训练精度：" {...formItemLayout}>
-            <NumberPicker 
-            {...init('productModel', {
-                  rules: [{ required: true, message: '必填选项' }],
-                })}
-            defaultValue={0} type="inline" />
-            </FormItem>
-
           </Form>
+
+
+
+          <Upload
+              action="https://www.easy-mock.com/mock/5b713974309d0d7d107a74a3/alifd/upload"
+              beforeUpload={this.beforeUpload}
+              onChange={this.onChange}
+              onSuccess={this.onSuccess}
+              listType="text"
+              defaultValue={defaultValue}>
+              <Button type="primary" style={{marginLeft: ' 20px',marginTop: ' 10px',marginBottom: ' 10px'}}>上传文件</Button>
+          </Upload>
         </Dialog>
       </div>
     );
