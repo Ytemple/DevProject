@@ -69,7 +69,6 @@ export default class VibrationData extends Component {
       }
     })
   }
-
  
   /** 获取树节点     同时获取文件列表中的值*/
   getTreekey = (Key) => {
@@ -81,9 +80,6 @@ export default class VibrationData extends Component {
       FileValue: valueList
     })
   }
-
- 
-
   render() {
     return (
       <div className="home-page" style={styles.homePage}>

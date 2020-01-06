@@ -11,8 +11,8 @@ import Preprocessing from './components/Preprocessing';
 import PropTypes from 'prop-types';
 
 let i=10000;
-export default class Table extends Component {
-  static displayName = 'Table';
+export default class TableVibrationModelTraining extends Component {
+  static displayName = 'TableVibrationModelTraining';
  
   static propTypes = {};
 
@@ -29,35 +29,40 @@ export default class Table extends Component {
     this.columns = [
       
       {
-        title: '数据集名称',
+        title: '模型名称',
         dataIndex: 'dataSetName',
-        key: 'dataSetName',
+        key: 'name',
       },
-     
       {
         title: '算法',
         dataIndex: 'algorithm',
         key: 'algorithm',
       },
       {
-        title: '校验精度值',
-        dataIndex: 'accuracy',
-        key: 'accuracy',
+        title: '神经元个数',
+        dataIndex: 'neuronsNumber',
+        key: 'neuronsNumber',
       },
+      {
+        title: '卷积层数',
+        dataIndex: 'convolutionalLayers',
+        key: 'convolutionalLayers',
+      },
+      
       {
         title: '操作',
         key: 'action',
         render: (value, index, record) => {
           return (
             <span>
-            {/**
               <EditDialog
                 index={index}
                 record={record}
                 getFormValues={this.getFormValues}
               />
-               */}
+              {/** 
               <Preprocessing />
+            */}
             </span>
           );
         },

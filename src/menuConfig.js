@@ -43,7 +43,7 @@ const asideMenuConfig = [
     ],
   },
   {
-    name: '智能模型训练与校验',
+    name: '模型训练与校验',
     path: '/4',
     icon: 'directory',
     children: [

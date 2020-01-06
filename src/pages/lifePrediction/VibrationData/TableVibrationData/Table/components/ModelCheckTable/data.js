@@ -26,10 +26,12 @@ xhr.onreadystatechange = function(){
 */
 //为什么使用ajax就可以，但是使用传统的方法就不行了呢
 let data =  [{
-  dataSetName:'数据集1',
+  dataSetName:'模型1',
   id:1
-},];
-
+},{
+  dataSetName:'模型1',
+  id:2
+}];
  
 /**
 $.ajax({

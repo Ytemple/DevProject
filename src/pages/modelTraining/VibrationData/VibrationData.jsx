@@ -2,7 +2,7 @@ import React, { Component, PureComponent } from 'react';
 import $ from 'jquery'
 import TreeIndex from './TreeIndex/index';
 import dataConfig from './TreeIndex/dataConfig'
-import TableVibrationData from './TableVibrationData/index'
+import TableVibrationModelTraining from './TableVibrationModelTraining/Table/index'
 import Table from './TableVibrationData/Table/index'
 let data1 = [];
 let n1 = 1111;
@@ -68,7 +68,6 @@ export default class VibrationData extends Component {
       }
     })
   }
-
  
   /** 获取树节点     同时获取文件列表中的值*/
   getTreekey = (Key) => {
@@ -81,8 +80,6 @@ export default class VibrationData extends Component {
     })
   }
 
- 
-
   render() {
     return (
       <div className="home-page" style={styles.homePage}>
@@ -94,10 +91,9 @@ export default class VibrationData extends Component {
         ></TreeIndex>
         <div style={{ display: this.state.displayName }}>
       <Table></Table>
-        {/** 
-          <TableVibrationData>
-          </TableVibrationData>
-          */}
+        
+          <TableVibrationModelTraining>
+          </TableVibrationModelTraining>
         </div>
       </div>
     );
