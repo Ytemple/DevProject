@@ -23,9 +23,6 @@ export default class Table extends Component {
     this.state = {
       dataSource:data
     };
-
-    
-
     this.columns = [
       
       {

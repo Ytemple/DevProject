@@ -1,13 +1,8 @@
 import React, { Component } from 'react';
-import { Dialog, Button, Form, Input, Field,Select,Upload,NumberPicker } from '@alifd/next';
-import GetModelData from './GetModelData'
+import { Dialog, Button, Form, Input, Field,Select,NumberPicker } from '@alifd/next';
+import SelectableTable from './SelectableTable/index'
 const FormItem = Form.Item;
 const Option = Select.Option;
-const defaultValue ={
-  'dataSetName':1,
-  'modelDataSet':2
-}
-
 export default class Preprocessing extends Component {
   static displayName = 'Preprocessing';
 
@@ -18,10 +13,8 @@ export default class Preprocessing extends Component {
     this.state = {
       visible: false,
       dataIndex: null,
-      record:defaultValue
     };
     this.field = new Field(this);
-    this.field.setValues(this.state.record);
   }
 
   handleSubmit = () => {
@@ -31,6 +24,7 @@ export default class Preprocessing extends Component {
         console.log('Errors in form!!!');
         return;
       }
+
       const { dataIndex } = this.state;
       console.log(dataIndex);  //打印输出0，1，2
       this.setState({
@@ -53,27 +47,6 @@ export default class Preprocessing extends Component {
     });
   };
 
-  beforeUpload=(info)=> {
-    console.log('beforeUpload : ', info);
-  }
-
-  onChange=(info)=> {
-      console.log('onChange : ', info);
-  }
-  
-  onSuccess=(info)=> {
-      console.log('onSuccess : ', info);
-  }
-
-  chooseRow=(data)=>{
-    this.state.record.modelDataSet=data
-     this.setState({
-      // record:records,
-     });
-     this.field.setValues(this.state.record);
-   }
- 
-
   render() {
     const init = this.field.init;
     const { index, record } = this.props;
@@ -86,7 +59,6 @@ export default class Preprocessing extends Component {
       },
     };
 
-
     return (
       <div style={styles.editDialog}>
         <Button
@@ -94,7 +66,7 @@ export default class Preprocessing extends Component {
           type="primary"
           onClick={() => this.onOpen(index, record)}
         >
-         寿命预测
+         模型训练
         </Button>
         <Dialog
           style={{ width:700 }}
@@ -103,10 +75,11 @@ export default class Preprocessing extends Component {
           closeable="esc,mask,close"
           onCancel={this.onClose}
           onClose={this.onClose}
-          title="寿命预测"
+          title="打标注"
         >
           <Form field={this.field}>
-          <FormItem label="数据集名称：" {...formItemLayout}>
+           
+            <FormItem label="数据集名称：" {...formItemLayout}>
               <Input
                 {...init('dataSetName', {
                   rules: [{  message: '必填选项' }],
@@ -114,28 +87,47 @@ export default class Preprocessing extends Component {
               />
             </FormItem>
 
-            <FormItem label="模型选择：" {...formItemLayout}>
+            <FormItem label="算法：" {...formItemLayout}>
               <Input
-                {...init('modelDataSet', {
+                {...init('algorithm', {
                   rules: [{  message: '必填选项' }],
                 })}
-                disabled
-                style={{width: 300}}
               />
-              <GetModelData chooseRow={this.chooseRow}/>
             </FormItem>
             
+            <FormItem label="神经元个数：" {...formItemLayout}>
+            <NumberPicker 
+            {...init('neuronsNumber', {
+                  rules: [{ required: true, message: '必填选项' }],
+                })}
+            defaultValue={0} type="inline" />
+            </FormItem>
+
+            <FormItem label="卷积层数：" {...formItemLayout}>
+            <NumberPicker 
+            {...init('convolutionalLayers', {
+                  rules: [{ required: true, message: '必填选项' }],
+                })}
+            defaultValue={0} type="inline" />
+            </FormItem>
+
+            <FormItem label="池化层数：" {...formItemLayout}>
+            <NumberPicker 
+            {...init('poolingLayers', {
+                  rules: [{ required: true, message: '必填选项' }],
+                })}
+            defaultValue={0} type="inline" />
+            </FormItem>
+
+            <FormItem label="学习率：" {...formItemLayout}>
+            <NumberPicker 
+            {...init('learningRate', {
+                  rules: [{ required: true, message: '必填选项' }],
+                })}
+            defaultValue={0} type="inline" />
+            </FormItem>
+
           </Form>
-          <Upload
-              action="https://www.easy-mock.com/mock/5b713974309d0d7d107a74a3/alifd/upload"
-              beforeUpload={this.beforeUpload}
-              onChange={this.onChange}
-              onSuccess={this.onSuccess}
-              listType="text"
-            // defaultValue={defaultValue}
-             >
-              <Button type="primary" style={{marginLeft: ' 20px',marginTop: ' 10px',marginBottom: ' 10px'}}>上传文件</Button>
-          </Upload>
         </Dialog>
       </div>
     );
