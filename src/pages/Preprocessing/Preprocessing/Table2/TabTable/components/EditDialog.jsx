@@ -82,7 +82,8 @@ export default class EditDialog extends Component {
           closeable="esc,mask,close"
           onCancel={this.onClose}
           onClose={this.onClose}
-          title="编辑"
+          title="查看"
+          isFullScreen
         >
            <FileTable id={this.props.record.id}/>
         </Dialog>
