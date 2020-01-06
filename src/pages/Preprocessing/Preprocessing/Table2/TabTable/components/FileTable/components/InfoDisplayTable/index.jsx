@@ -60,7 +60,7 @@ export default class Index extends Component {
     console.log('17:14',this.props.id)
     $.ajax({
       type:"get",
-      url:hostPort+"equip/sequence/read/1211836427177398273",
+      url:hostPort+"equip/sequence/read/1211196943137001474",
       dataType:'JSON',
       contentType:"application/json;charset=UTF-8",
       async:false,
