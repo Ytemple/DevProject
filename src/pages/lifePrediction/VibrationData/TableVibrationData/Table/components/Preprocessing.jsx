@@ -106,6 +106,7 @@ export default class Preprocessing extends Component {
           title="寿命预测"
         >
           <Form field={this.field}>
+          {/** 
           <FormItem label="数据集名称：" {...formItemLayout}>
               <Input
                 {...init('dataSetName', {
@@ -113,7 +114,7 @@ export default class Preprocessing extends Component {
                 })}
               />
             </FormItem>
-
+          */}
             <FormItem label="模型选择：" {...formItemLayout}>
               <Input
                 {...init('modelDataSet', {

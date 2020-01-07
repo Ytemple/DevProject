@@ -56,7 +56,7 @@ export default class Table1 extends Component {
               <DeleteBalloon
                 handleRemove={() => this.handleRemove(value, index, record)}
               />
-              <Link to="/DataProcessing">
+              <Link to="/List">
                 <Button
                   size="small"
                   type="primary"

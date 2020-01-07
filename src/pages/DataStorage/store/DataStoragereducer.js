@@ -85,6 +85,9 @@ const DataStoragereducer = (state=dataStorage,action)=>{
       newState.VibrationDataConfig=action.dataConfig
        return newState;
      }
+
+
+
     /** sequence */
     if(action.type==='SequenceComponenDidMount'){
       const newState=JSON.parse(JSON.stringify(state));
@@ -112,7 +115,6 @@ const DataStoragereducer = (state=dataStorage,action)=>{
       newState.key=action.key
       newState.sequenceTable=action.tableList
       newState.sequenceFile=action.tableList
-      console.log('19:09',newState.key)
        return newState;
      }
      if(action.type==='sequenceFileComponenDidMount'){
@@ -126,7 +128,15 @@ const DataStoragereducer = (state=dataStorage,action)=>{
       Array.prototype.push.apply(newState.sequenceTable,action.list);
        return newState;
      }
+//   DataStorage\Sequence\Table2\TabTable\Table.jsx    
+     if(action.type==='sequenceFileID'){    //当前选择的文件ID
+      const newState=JSON.parse(JSON.stringify(state));
+      newState.fileID=action.id
+      return newState;
+     }
     
+
+
      /** image */
      if(action.type==='ImageComponenDidMount'){
       const newState=JSON.parse(JSON.stringify(state));

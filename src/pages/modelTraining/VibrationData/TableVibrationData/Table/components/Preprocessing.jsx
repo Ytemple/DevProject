@@ -3,6 +3,14 @@ import { Dialog, Button, Form, Input, Field,Select,NumberPicker } from '@alifd/n
 import SelectableTable from './SelectableTable/index'
 const FormItem = Form.Item;
 const Option = Select.Option;
+const data={
+  modelName:'',
+  algorithm:'',
+  neuronsNumber:'',
+  convolutionalLayers:'',
+  poolingLayers:'',
+  learningRate:'',
+}
 export default class Preprocessing extends Component {
   static displayName = 'Preprocessing';
 
@@ -75,13 +83,13 @@ export default class Preprocessing extends Component {
           closeable="esc,mask,close"
           onCancel={this.onClose}
           onClose={this.onClose}
-          title="打标注"
+          title="模型训练"
         >
           <Form field={this.field}>
            
-            <FormItem label="数据集名称：" {...formItemLayout}>
+            <FormItem label="模型名称：" {...formItemLayout}>
               <Input
-                {...init('dataSetName', {
+                {...init('modelName', {
                   rules: [{  message: '必填选项' }],
                 })}
               />

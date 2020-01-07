@@ -22,8 +22,8 @@ export default class ModelCheckTable extends Component {
     this.columns = [
       
       {
-        title: '模型名称',
-        dataIndex: 'dataSetName',
+        title: '模型',
+        dataIndex: 'modelName',
         key: 'name',
       },
       {
@@ -40,6 +40,21 @@ export default class ModelCheckTable extends Component {
         title: '卷积层数',
         dataIndex: 'convolutionalLayers',
         key: 'convolutionalLayers',
+      },
+      {
+        title: '池化层数',
+        dataIndex: 'poolingLayers',
+        key: 'poolingLayers',
+      },
+      {
+        title: '学习率',
+        dataIndex: 'learningRate',
+        key: 'learningRate',
+      },
+      {
+        title: '训练时间',
+        dataIndex: 'trainingTime',
+        key: 'trainingTime',
       },
       
     ];
@@ -61,7 +76,7 @@ export default class ModelCheckTable extends Component {
                         onChange: this.rowSelection
                     }}
                 >
-                    <Table.Column title="数据集名称" dataIndex="dataSetName" width={150} />
+                    <Table.Column title="模型" dataIndex="modelName" width={150} />
                     <Table.Column title="算法" dataIndex="algorithm" width={150} />
                     <Table.Column title="神经元个数" dataIndex="neuronsNumber" width={150} />
                     <Table.Column title="卷积层数" dataIndex="convolutionalLayers" width={150} />

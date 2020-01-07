@@ -21,7 +21,7 @@ export default class GetModelData extends Component {
   handleSubmit = () => {
     const {record}=this.state
     const {failRate} =this.props
-    this.props.chooseRow(record[0].dataSetName)
+    this.props.chooseRow(record[0].modelName)
     this.setState({
       visible: false,
     });

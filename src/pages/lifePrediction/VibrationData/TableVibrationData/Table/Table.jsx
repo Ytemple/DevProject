@@ -27,13 +27,13 @@ export default class Table extends Component {
       
       {
         title: '数据集名称',
-        dataIndex: 'childNode',
-        key: 'childNode',
+        dataIndex: 'dataSetName',
+        key: 'dataSetName',
       },
       {
         title: '预测值',
-        dataIndex: 'childNode',
-        key: 'childNode',
+        dataIndex: 'prediction',
+        key: 'prediction',
       },
       {
         title: '操作',

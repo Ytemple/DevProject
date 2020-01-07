@@ -33,11 +33,15 @@ export default class Table extends Component {
         dataIndex: 'dataSetName',
         key: 'dataSetName',
       },
-     
       {
         title: '算法',
         dataIndex: 'algorithm',
         key: 'algorithm',
+      },
+      {
+        title: '模型',
+        dataIndex: 'model',
+        key: 'model',
       },
       {
         title: '校验精度值',

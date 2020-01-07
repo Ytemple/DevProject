@@ -29,6 +29,7 @@ let data =  [{
   dataSetName:'数据集1',
   algorithm:'算法',
   accuracy:'精度',
+  model:'模型',
   id:1
 }];
  

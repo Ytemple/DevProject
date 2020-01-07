@@ -33,47 +33,20 @@ export default class Table extends Component {
         dataIndex: 'dataSetName',
         key: 'name',
       },
-      {
-        title: '算法',
-        dataIndex: 'algorithm',
-        key: 'algorithm',
-      },
-      {
-        title: '神经元个数',
-        dataIndex: 'neuronsNumber',
-        key: 'neuronsNumber',
-      },
-      {
-        title: '卷积层数',
-        dataIndex: 'convolutionalLayers',
-        key: 'convolutionalLayers',
-      },
-      {
-        title: '池化层数',
-        dataIndex: 'poolingLayers',
-        key: 'poolingLayers',
-      },
-      {
-        title: '学习率',
-        dataIndex: 'learningRate',
-        key: 'learningRate',
-      },
-      {
-        title: '训练时间',
-        dataIndex: 'trainingTime',
-        key: 'trainingTime',
-      },
+      
       {
         title: '操作',
         key: 'action',
         render: (value, index, record) => {
           return (
             <span>
+            {/**
               <EditDialog
                 index={index}
                 record={record}
                 getFormValues={this.getFormValues}
               />
+               */}
               <Preprocessing />
 
 

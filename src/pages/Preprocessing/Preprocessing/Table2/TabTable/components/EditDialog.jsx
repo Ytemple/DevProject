@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import { Dialog, Button, Form, Input, Field } from '@alifd/next';
 import PropTypes from 'prop-types';
 import FileTable from  './FileTable/index'
-
+import DataStorage from '../../../../../DataStorage/index'
+import IceContainer from '@icedesign/container';
 const FormItem = Form.Item;
 
 export default class EditDialog extends Component {
@@ -76,16 +77,22 @@ export default class EditDialog extends Component {
           查看
         </Button>
         <Dialog
-          style={{ width: 640 }}
+         // style={{ width: 1600, overflow:'scroll'}}
           visible={this.state.visible}  //通过在这儿的设置，实现了是否使得视图可见
           onOk={this.handleSubmit}
           closeable="esc,mask,close"
           onCancel={this.onClose}
           onClose={this.onClose}
-          title="查看"
           isFullScreen
+          title="查看"
         >
-           <FileTable id={this.props.record.id}/>
+        
+        <IceContainer 
+        //style={{ width: 1000, overflow:'scroll'}}
+        >
+         <FileTable id={this.props.record.id}/> 
+         </IceContainer>
+         
         </Dialog>
       </div>
     );

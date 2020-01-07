@@ -28,7 +28,7 @@ export default class CustomTable extends Component {
             key={item.key}
             title={item.title}
             cell={item.render}
-            width={item.width || 150}
+            width={item.width || 250}
           />
         );
       }
@@ -38,7 +38,7 @@ export default class CustomTable extends Component {
           key={item.key}
           title={item.title}
           dataIndex={item.dataIndex}  //每一个item都有对应的dataindex，通过这个index来匹配相应的数据
-          width={item.width || 150}
+          width={item.width || 250}
         />
       );
     });

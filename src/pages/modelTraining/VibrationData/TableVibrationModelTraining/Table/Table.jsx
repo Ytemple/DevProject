@@ -27,10 +27,9 @@ export default class TableVibrationModelTraining extends Component {
     
 
     this.columns = [
-      
       {
-        title: '模型名称',
-        dataIndex: 'dataSetName',
+        title: '模型',
+        dataIndex: 'modelName',
         key: 'name',
       },
       {
@@ -48,7 +47,21 @@ export default class TableVibrationModelTraining extends Component {
         dataIndex: 'convolutionalLayers',
         key: 'convolutionalLayers',
       },
-      
+      {
+        title: '池化层数',
+        dataIndex: 'poolingLayers',
+        key: 'poolingLayers',
+      },
+      {
+        title: '学习率',
+        dataIndex: 'learningRate',
+        key: 'learningRate',
+      },
+      {
+        title: '训练时间',
+        dataIndex: 'trainingTime',
+        key: 'trainingTime',
+      },
       {
         title: '操作',
         key: 'action',
@@ -63,6 +76,9 @@ export default class TableVibrationModelTraining extends Component {
               {/** 
               <Preprocessing />
             */}
+            <DeleteBalloon
+                handleRemove={() => this.handleRemove(value, index, record)}
+              />
             </span>
           );
         },

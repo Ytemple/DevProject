@@ -1,8 +1,14 @@
 import React, { Component } from 'react';
 import { Dialog, Button, Form, Input, Field,Select,NumberPicker } from '@alifd/next';
 import SelectableTable from './SelectableTable/index'
+import GetModelData from '../../../../../LifePrediction/VibrationData/TableVibrationData/Table/components/GetModelData'
 const FormItem = Form.Item;
 const Option = Select.Option;
+const defaultRecord ={
+  'algorithm':'算法1',
+  'dataSetName':'数据集',
+  'modelDataSet':'模型'
+}
 export default class Preprocessing extends Component {
   static displayName = 'Preprocessing';
 
@@ -13,6 +19,7 @@ export default class Preprocessing extends Component {
     this.state = {
       visible: false,
       dataIndex: null,
+      record:defaultRecord
     };
     this.field = new Field(this);
   }
@@ -34,7 +41,7 @@ export default class Preprocessing extends Component {
   };
 
   onOpen = (index, record) => {
-    this.field.setValues({ ...record });
+    this.field.setValues(this.state.record);
     this.setState({
       visible: true,
       dataIndex: index,
@@ -46,6 +53,14 @@ export default class Preprocessing extends Component {
       visible: false,
     });
   };
+
+  chooseRow=(data)=>{
+    this.state.record.modelDataSet=data
+     this.setState({
+      // record:records,
+     });
+     this.field.setValues(this.state.record);
+   }
 
   render() {
     const init = this.field.init;
@@ -79,14 +94,6 @@ export default class Preprocessing extends Component {
         >
           <Form field={this.field}>
 
-          <FormItem label="数据集名称：" {...formItemLayout}>
-              <Input
-                {...init('dataSetName', {
-                  rules: [{  message: '必填选项' }],
-                })}
-              />
-            </FormItem>
-
           <FormItem label="算法：" {...formItemLayout}>
                     <Select  
                      {...init('algorithm', {
@@ -98,6 +105,25 @@ export default class Preprocessing extends Component {
                             <Option value="large">CNN</Option>
                             <Option value="large">CNN</Option>
                     </Select>
+            </FormItem>
+
+          <FormItem label="数据集名称：" {...formItemLayout}>
+              <Input
+                {...init('dataSetName', {
+                  rules: [{  message: '必填选项' }],
+                })}
+              />
+            </FormItem>
+
+            <FormItem label="模型选择：" {...formItemLayout}>
+              <Input
+                {...init('modelDataSet', {
+                  rules: [{  message: '必填选项' }],
+                })}
+                disabled
+                style={{width: 300}}
+              />
+              <GetModelData chooseRow={this.chooseRow}/>
             </FormItem>
 
           </Form>

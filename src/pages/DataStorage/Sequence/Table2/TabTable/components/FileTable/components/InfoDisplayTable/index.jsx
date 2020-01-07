@@ -55,9 +55,8 @@ export default class Index extends Component {
   }
   
   componentDidMount(){
-    let tableColumn
+    let tableColumnLength
     let tableData
-    console.log('17:14',this.props.id)
     $.ajax({
       type:"get",
       url:hostPort+"equip/sequence/read/"+this.props.id,
@@ -66,19 +65,29 @@ export default class Index extends Component {
       async:false,
       success:function(res){
         if(res.flag){
-          tableColumn=res.data[0]
-         
+          tableColumnLength=Object.keys(res.data[0]).length
           tableData=res.data.slice(1)
-          console.log('12,14.11:22',tableColumn,tableData)
         }
       },
       error:function(){
       }
     })
-    this.setState({
-     // column:tableColumn,
-      dataSource:tableData
-    })
+    let getCol = () => {
+      let col =[]
+      for(let i=1;i<=tableColumnLength;i++){
+        let colContent={
+         title:'第'+i+'列',
+         dataIndex:'第'+i+'列',
+        }
+       col.push(colContent)
+      }
+      return col
+     };
+     getCol()
+     this.setState({
+       column:getCol(),
+       dataSource:tableData
+     })
 }
 
 
@@ -90,14 +99,25 @@ export default class Index extends Component {
         )
       })
     )
-      
   }
    
+  onBodyScroll = (start) => {
+    this.setState({
+        scrollToRow: start
+    });
+}
+
   render() {
     return (
       <div className="info-display-table">
         <IceContainer>
-          <Table dataSource={this.state.dataSource}>
+          <Table 
+          dataSource={this.state.dataSource}
+          maxBodyHeight={600} 
+          scrollToRow={this.state.scrollToRow} 
+          onBodyScroll={this.onBodyScroll}
+          useVirtual
+          >
          {this.getColumn()}  
 
           </Table>

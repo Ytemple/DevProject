@@ -42,8 +42,6 @@ export default class EditDialog extends Component {
   };
 
   onOpen = (index, record) => {
-    
-   
     this.field.setValues({ ...record });
     this.setState({
       visible: true,

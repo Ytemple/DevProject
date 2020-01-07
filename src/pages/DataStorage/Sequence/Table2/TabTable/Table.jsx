@@ -56,6 +56,15 @@ export default class Table extends Component {
               <DeleteBalloon
                 handleRemove={() => this.handleRemove(value, index, record)}
               />
+              <Link to="/List">
+                <Button
+                  size="small"
+                  type="primary"
+                  onClick={() => this.handleProcess(index, record)}
+                >
+                  流程
+                </Button>
+              </Link>
             </span>
           );
         },
@@ -66,9 +75,8 @@ export default class Table extends Component {
     this.setState({
       dataSource: store.getState().DataStoragereducer.sequenceTable,
     })
-  //console.log('17:04 sequence changed', store.getState().DataStoragereducer.sequenceTable)
+  console.log('22:10 sequence changed', store.getState().DataStoragereducer)
 }
-
  
 /**编辑 */
   getFormValues = (dataIndex, values) => {
@@ -105,7 +113,17 @@ export default class Table extends Component {
     let index =this.state.dataSource.length-1
     this.props.addChild(123)
   }
+/**流程 */
+handleProcess=(index, record)=>{
+    //console.log('2020.1.6 21:59',index,record)
+    //console.log(record.id)
+    const action ={
+      type:'sequenceFileID',
+      id: record.id
+    }
+    store.dispatch(action)
 
+}
 
   render() {
     const { dataSource } = this.state;

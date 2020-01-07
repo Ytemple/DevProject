@@ -14,10 +14,12 @@ const dataStorage={
 }
 //reducer可以接受state，但是不能修改state，所以必须要拷贝一份
 const Preprocessingreducer = (state=dataStorage,action)=>{
-  if(action.type==='handleSubmit'){
+  //  Preprocessing\Preprocessing\Table2\TabTable\Table.jsx
+  if(action.type==='handleSubmit'){  //数据预处理后的结果
     const newState=JSON.parse(JSON.stringify(state));
     console.log('1.3 20:19',newState)
     newState.preProcessingTable=[action.returnData]
+    newState.preProcessingID=action.returnData.resultFileId
     return newState;
    }
 
