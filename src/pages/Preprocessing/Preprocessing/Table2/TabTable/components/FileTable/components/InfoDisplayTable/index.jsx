@@ -62,7 +62,7 @@ export default class Index extends Component {
       preProcessingID:getID()
     };
     console.log('23:04',this.state)
-    store.subscribe(this.handleStoreChange);
+    //store.subscribe(this.handleStoreChange);
   }
   /** 不需要handleStoreChange */
   /**
@@ -89,7 +89,7 @@ export default class Index extends Component {
     console.log('22:50',store.getState().DataStoragereducer.fileID)
     $.ajax({
       type:"get",
-      url:hostPort+"equip/sequence/read/1214201199750340600",
+      url:hostPort+"equip/sequence/read/1214439952377974786",
       dataType:'JSON',
       contentType:"application/json;charset=UTF-8",
       async:false,
