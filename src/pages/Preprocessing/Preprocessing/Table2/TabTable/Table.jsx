@@ -94,12 +94,14 @@ handleSubmit = (values) => {
     async:false,
     data:JSON.stringify({
         "id":2,
+        /** 
         "resultFileId":this.state.preProcessingID,
         algorithm: values.algorithm,
         "aisle":values.aisle,
         sampleNumber:values.sampleNumber,
         createPerson:values.createPerson,
         createDate:values.createDate,
+        */
       }),
     success:function(res){
       if(res.flag){

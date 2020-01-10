@@ -89,7 +89,7 @@ export default class Index extends Component {
     console.log('22:50',store.getState().DataStoragereducer.fileID)
     $.ajax({
       type:"get",
-      url:hostPort+"equip/sequence/read/1214439952377974786",
+      url:hostPort+"equip/sequence/read/1215284989160591362",
       dataType:'JSON',
       contentType:"application/json;charset=UTF-8",
       async:false,
