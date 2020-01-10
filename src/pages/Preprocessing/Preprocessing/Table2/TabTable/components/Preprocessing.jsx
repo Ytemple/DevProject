@@ -115,7 +115,9 @@ export default class Preprocessing extends Component {
             <FormItem label="采样次数：" {...formItemLayout}>
               <Input
                 {...init('sampleNumber', {
-                  rules: [{ required: true, message: '必填选项' }],
+                  rules: [{ 
+                   // required: true, 
+                    message: '必填选项' }],
                 })}
               />
             </FormItem>
@@ -123,7 +125,9 @@ export default class Preprocessing extends Component {
             <FormItem label="处理日期：" {...formItemLayout}>
               <Input
                 {...init('createDate', {
-                  rules: [{ required: true, message: '必填选项' }],
+                  rules: [{ 
+                   // required: true, 
+                    message: '必填选项' }],
                 })}
               />
             </FormItem>
@@ -131,7 +135,9 @@ export default class Preprocessing extends Component {
             <FormItem label="处理人：" {...formItemLayout}>
               <Input
                 {...init('createPerson', {
-                  rules: [{ required: true, message: '必填选项' }],
+                  rules: [{ 
+                  //  required: true, 
+                    message: '必填选项' }],
                 })}
               />
             </FormItem>
@@ -139,13 +145,15 @@ export default class Preprocessing extends Component {
             <FormItem
                     label="数据源:"
                     hasFeedback
-                    required
+                   // required
                     requiredMessage="Please select your gender"
                     {...formItemLayout}
                 >
                     <RadioGroup 
                     {...init('dataSource', {
-                    rules: [{ required: true, message: '必填选项' }],
+                    rules: [{ 
+                    //  required: true,
+                      message: '必填选项' }],
                   })}
                     >
                         <Radio value="原始文件">原始文件</Radio>
