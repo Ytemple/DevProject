@@ -9,7 +9,10 @@ import {Button} from '@alifd/next';
 import { Link } from 'react-router-dom';
 import Preprocessing from './components/Preprocessing';
 import PropTypes from 'prop-types';
-
+import store from '../../../../Store/index'
+import $ from 'jquery'
+import {headerToken,hostPort} from '../../../../../Common'
+import {BigNumber} from 'bignumber.js'; 
 let i=10000;
 export default class Table extends Component {
   static displayName = 'Table';
@@ -24,32 +27,19 @@ export default class Table extends Component {
       dataSource:data
     };
 
-    
-
     this.columns = [
-      
       {
         title: '数据集名称',
         dataIndex: 'dataSetName',
         key: 'name',
       },
-      
       {
         title: '操作',
         key: 'action',
         render: (value, index, record) => {
           return (
             <span>
-            {/**
-              <EditDialog
-                index={index}
-                record={record}
-                getFormValues={this.getFormValues}
-              />
-               */}
-              <Preprocessing />
-
-
+              <Preprocessing  handleSubmit={this.handleSubmit}/>
             </span>
           );
         },
@@ -57,49 +47,50 @@ export default class Table extends Component {
     ];
   }
 
- 
-/**编辑 */
-  getFormValues = (dataIndex, values) => {
-   
-    const { dataSource } = this.state;
-    dataSource[dataIndex] = values;  //将修改后的表单数据响应的赋值进去。
-    this.setState({
-      dataSource,
-    });
-    
-  this.props.changeChild(values.childNode,values.componentCode,this.props.childrenData[dataIndex].treeTableKey); 
-  };
-/**删除 */
-  handleRemove = (value, index) => {
-    //this.props.deleteChild(this.state.dataSource[index],index);
-    const { dataSource } = this.state;
-    dataSource.splice(index, 1);
-    this.setState({
-      dataSource,
-    });
-  };
-  /**新增 */
-  addTable1=()=>{
-    i++
-    this.state.dataSource.push({
-      childNode: '新增',
-      componentCode: '新增',
-      treeTableKey:i
-    });
-    
-    this.setState({
-      dataSource: this.state.dataSource,
-    });
-    let index =this.state.dataSource.length-1
-    this.props.addChild(123)
+/**提交模型训练 */
+handleSubmit = (values) => {
+  console.log('1.10 14:37',values)
+  let returnData
+  $.ajax({
+    type:"POST",
+    url:hostPort+"equip/modal/train",
+    contentType:"application/json;charset=UTF-8",
+    dataType:'JSON',
+    async:false,
+    data:JSON.stringify({
+        sourceFile:''+store.getState().Preprocessingreducer.preProcessingID,
+        name:'正在训练模型',
+        method:2,
+        neuronsNumber:'32',
+        learningRate:"0.001",
+      }),
+    success:function(res){
+      if(res.flag){
+      returnData=res.data
+      console.log('22:40',returnData)
+      }
+    },
+    error:function(){
+    }
+  })
+  if(returnData){
+    const action ={
+      type:'modelTrainingHandleSubmit',
+      returnData
+    }
+    store.dispatch(action)
+  }else{
+    const action ={
+      type:'modelTrainingHandleSubmit',
+    }
+    store.dispatch(action)
   }
-
+};
 
   render() {
     const { dataSource } = this.state;
     return (
         <div>
-            
         <IceContainer>          
                   <CustomTable
                     dataSource={dataSource}

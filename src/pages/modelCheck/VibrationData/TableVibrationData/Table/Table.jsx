@@ -8,6 +8,9 @@ import data from './data';
 import {Button} from '@alifd/next';
 import { Link } from 'react-router-dom';
 import Preprocessing from './components/Preprocessing';
+import $ from 'jquery'
+import {headerToken,hostPort} from '../../../../../Common'
+import store from '../../../../Store/index'
 import PropTypes from 'prop-types';
 
 let i=10000;
@@ -21,13 +24,9 @@ export default class Table extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      dataSource:data
+      dataSource:store.getState().ModelCheckreducer.modelCheckTable,
     };
-
-    
-
     this.columns = [
-      
       {
         title: '数据集名称',
         dataIndex: 'dataSetName',
@@ -54,58 +53,55 @@ export default class Table extends Component {
         render: (value, index, record) => {
           return (
             <span>
-            {/**
-              <EditDialog
-                index={index}
-                record={record}
-                getFormValues={this.getFormValues}
-              />
-               */}
-              <Preprocessing />
+              <Preprocessing handleSubmit={this.handleSubmit}/>
             </span>
           );
         },
       },
     ];
+    store.subscribe(this.handleStoreChange);
   }
-
- 
-/**编辑 */
-  getFormValues = (dataIndex, values) => {
-   
-    const { dataSource } = this.state;
-    dataSource[dataIndex] = values;  //将修改后的表单数据响应的赋值进去。
+  handleStoreChange=()=>{
     this.setState({
-      dataSource,
-    });
-    
-  this.props.changeChild(values.childNode,values.componentCode,this.props.childrenData[dataIndex].treeTableKey); 
-  };
-/**删除 */
-  handleRemove = (value, index) => {
-    //this.props.deleteChild(this.state.dataSource[index],index);
-    const { dataSource } = this.state;
-    dataSource.splice(index, 1);
-    this.setState({
-      dataSource,
-    });
-  };
-  /**新增 */
-  addTable1=()=>{
-    i++
-    this.state.dataSource.push({
-      childNode: '新增',
-      componentCode: '新增',
-      treeTableKey:i
-    });
-    
-    this.setState({
-      dataSource: this.state.dataSource,
-    });
-    let index =this.state.dataSource.length-1
-    this.props.addChild(123)
+      dataSource:store.getState().ModelCheckreducer.modelCheckTable,
+    })
   }
-
+  handleSubmit = (values) => {
+    let returnData
+    var fd = new FormData();
+    fd.append("algorithmId",3);
+    fd.append("modalId",9);
+    $.ajax({
+      type:"POST",
+      url:hostPort+"equip/modal/test",
+      contentType: false,
+      processData: false,
+      dataType:'JSON',
+      async:false,
+      data: fd,
+      success:function(res){
+        if(res.flag){
+        returnData=res.data
+        console.log('1.13 21:44',returnData)
+        }
+      },
+      error:function(){
+      }
+    }) 
+    if(returnData){
+      const action ={
+        type:'modelCheckHandleSubmit',
+        returnData
+      }
+      store.dispatch(action)
+    }else{
+      returnData=values
+      const action ={
+        type:'modelCheckHandleSubmit',
+      }
+      store.dispatch(action)
+    }
+  };
 
   render() {
     const { dataSource } = this.state;

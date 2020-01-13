@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Dialog, Button, Form, Input, Field,Select,NumberPicker } from '@alifd/next';
-import SelectableTable from './SelectableTable/index'
 const FormItem = Form.Item;
 const Option = Select.Option;
 const data={
@@ -32,7 +31,7 @@ export default class Preprocessing extends Component {
         console.log('Errors in form!!!');
         return;
       }
-
+      this.props.handleSubmit(values)
       const { dataIndex } = this.state;
       console.log(dataIndex);  //打印输出0，1，2
       this.setState({
@@ -106,7 +105,9 @@ export default class Preprocessing extends Component {
             <FormItem label="神经元个数：" {...formItemLayout}>
             <NumberPicker 
             {...init('neuronsNumber', {
-                  rules: [{ required: true, message: '必填选项' }],
+                  rules: [{ 
+                  //  required: true, 
+                    message: '必填选项' }],
                 })}
             defaultValue={0} type="inline" />
             </FormItem>
@@ -114,7 +115,9 @@ export default class Preprocessing extends Component {
             <FormItem label="卷积层数：" {...formItemLayout}>
             <NumberPicker 
             {...init('convolutionalLayers', {
-                  rules: [{ required: true, message: '必填选项' }],
+                  rules: [{ 
+                  //  required: true, 
+                    message: '必填选项' }],
                 })}
             defaultValue={0} type="inline" />
             </FormItem>
@@ -122,18 +125,22 @@ export default class Preprocessing extends Component {
             <FormItem label="池化层数：" {...formItemLayout}>
             <NumberPicker 
             {...init('poolingLayers', {
-                  rules: [{ required: true, message: '必填选项' }],
+                  rules: [{ 
+                  //  required: true, 
+                    message: '必填选项' }],
                 })}
             defaultValue={0} type="inline" />
             </FormItem>
 
             <FormItem label="学习率：" {...formItemLayout}>
-            <NumberPicker 
-            {...init('learningRate', {
-                  rules: [{ required: true, message: '必填选项' }],
+              <Input
+                {...init('learningRate', {
+                  rules: [{  message: '必填选项' }],
                 })}
-            defaultValue={0} type="inline" />
+              />
             </FormItem>
+
+            
 
           </Form>
         </Dialog>

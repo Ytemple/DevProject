@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Dialog, Button, Form, Input, Field,Select,NumberPicker } from '@alifd/next';
-import SelectableTable from './SelectableTable/index'
 import GetModelData from '../../../../../LifePrediction/VibrationData/TableVibrationData/Table/components/GetModelData'
 const FormItem = Form.Item;
 const Option = Select.Option;
@@ -31,7 +30,7 @@ export default class Preprocessing extends Component {
         console.log('Errors in form!!!');
         return;
       }
-
+      this.props.handleSubmit(values)
       const { dataIndex } = this.state;
       console.log(dataIndex);  //打印输出0，1，2
       this.setState({

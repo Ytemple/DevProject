@@ -12,6 +12,7 @@ import PropTypes from 'prop-types';
 import store from '../../../../Store/index'
 import $ from 'jquery'
 import {headerToken,hostPort} from '../../../../../Common'
+import BigNumber from 'bignumber.js';
 let i=10000;
 export default class Table extends Component {
   static displayName = 'Table';

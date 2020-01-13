@@ -9,6 +9,7 @@ import {Button} from '@alifd/next';
 import { Link } from 'react-router-dom';
 import Preprocessing from './components/Preprocessing';
 import PropTypes from 'prop-types';
+import store from '../../../../Store/index'
 
 let i=10000;
 export default class TableVibrationModelTraining extends Component {
@@ -21,11 +22,8 @@ export default class TableVibrationModelTraining extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      dataSource:data
+      dataSource:store.getState().ModelTrainingreducer.modelTrainingTable
     };
-
-    
-
     this.columns = [
       {
         title: '模型',
@@ -84,9 +82,15 @@ export default class TableVibrationModelTraining extends Component {
         },
       },
     ];
+    store.subscribe(this.handleStoreChange);
   }
 
- 
+  handleStoreChange=()=>{
+    this.setState({
+      dataSource:store.getState().ModelTrainingreducer.modelTrainingTable
+    })
+   //console.log('preprocessing changed', store.getState().Preprocessingreducer)
+  }
 /**编辑 */
   getFormValues = (dataIndex, values) => {
    

@@ -7,11 +7,8 @@ import Table from './TableVibrationData/Table/index'
 let data1 = [];
 let n1 = 1111;
 let i = 100000000
-
 const defaultValue = [   //在这里定义文件列表中要显示的数据
 ];
-
-
 export default class VibrationData extends Component {
 
   static displayName = 'VibrationData';
@@ -74,7 +71,6 @@ export default class VibrationData extends Component {
   getTreekey = (Key) => {
     const valueList = [
     ];
-   
     this.setState({
       treeKey: Key[0],
       FileValue: valueList
