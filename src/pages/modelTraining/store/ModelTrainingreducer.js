@@ -14,6 +14,7 @@ const dataStorage={
     id:2
   }
   ],
+  totalCount:'',
   key:'',//当前选中的树节点
   ModelTrainingID:'',//当前选中的处理文件的ID
 }
@@ -22,16 +23,68 @@ const ModelTrainingreducer = (state=dataStorage,action)=>{
   //  Preprocessing\Preprocessing\Table2\TabTable\Table.jsx
   if(action.type==='modelTrainingHandleSubmit'){  //数据预处理后的结果
     const newState=JSON.parse(JSON.stringify(state));
-    //目前先这样做，正常情况下是要返回回来已有的模型列表
-    if(action.returnData){
-      newState.modelTrainingTable[0].modelName=action.returnData.name
+    let newTable=[]
+    if(action.returnDataList.pageList){
+      action.returnDataList.pageList.map((item,index)=>{
+        item.modelName=item.name,
+        item.algorithm=item.method
+        newTable.push(item)
+      })
     }else{
-      
     }
+    newState.modelTrainingTable=newTable
+    newState.totalCount=action.returnDataList.totalCount
+    return newState; 
+   }
+//C:ModelTraining\VibrationData\TableVibrationModelTraining\Table\Table.jsx  
+   if(action.type==='modelTrainingComponentDidMount'){  //初始化加载
+    const newState=JSON.parse(JSON.stringify(state));
+    let newTable=[]
+    if(action.returnData.pageList){
+      action.returnData.pageList.map((item,index)=>{
+        item.modelName=item.name,
+        item.algorithm=item.method
+        newTable.push(item)
+      })
+    }else{
+    }
+    newState.modelTrainingTable=newTable
+    newState.totalCount=action.returnData.totalCount
+    return newState; 
+   }
+   //\ModelTraining\VibrationData\TableVibrationModelTraining\Table\Table.jsx
+   if(action.type==='modelTrainingDelete'){    //删除已有模型列表。
+    const newState=JSON.parse(JSON.stringify(state));
+    let newTable=[]
+    if(action.returnList.pageList){
+      action.returnList.pageList.map((item,index)=>{
+        item.modelName=item.name,
+        item.algorithm=item.method
+        newTable.push(item)
+      })
+    }else{
+    }
+    newState.modelTrainingTable=newTable
+    newState.totalCount=action.returnList.totalCount
     return newState; 
    }
 
-    return state;  //state存放的是所有的信息，整个store仓库里存储的数据 action指用户传过来的那句话
-   
+   if(action.type==='modelTrainingOnChange'){    //删除已有模型列表。
+    const newState=JSON.parse(JSON.stringify(state));
+    let newTable=[]
+    if(action.returnData){
+      action.returnData.pageList.map((item,index)=>{
+        item.modelName=item.name,
+        item.algorithm=item.method
+        newTable.push(item)
+      })
+    }else{
+    }
+    newState.modelTrainingTable=newTable
+    newState.totalCount=action.returnData.totalCount
+    return newState; 
+   }
+
+    return state;  //state存放的是所有的信息，整个store仓库里存储的数据 action指用户传过来的那句话 
 }
 export default ModelTrainingreducer

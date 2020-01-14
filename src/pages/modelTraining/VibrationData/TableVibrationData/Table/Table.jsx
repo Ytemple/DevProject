@@ -59,26 +59,48 @@ handleSubmit = (values) => {
     async:false,
     data:JSON.stringify({
         sourceFile:''+store.getState().Preprocessingreducer.preProcessingID,
-        name:'正在训练模型',
+        name:values.modelName,
         method:2,
-        neuronsNumber:'32',
+        neuronsNumber:values.neuronsNumber,
+        convolutionalLayers:values.convolutionalLayers,
+        poolingLayers:values.poolingLayers,
         learningRate:"0.001",
       }),
     success:function(res){
       if(res.flag){
       returnData=res.data
-      console.log('22:40',returnData)
       }
     },
     error:function(){
     }
   })
   if(returnData){
-    const action ={
-      type:'modelTrainingHandleSubmit',
-      returnData
-    }
-    store.dispatch(action)
+    let returnDataList
+    $.ajax({
+      type:"post",
+      url:hostPort+"equip/modal/selectPage",
+      contentType:"application/json;charset=UTF-8",
+      dataType:'JSON',
+      async:false,
+      data:JSON.stringify({
+        "pageNo":0,
+        "pageSize":10,
+      }),
+      success:function(res){
+        if(res.flag){
+         returnDataList=res.data
+        }
+      },
+      error:function(){
+      }
+    })
+    if(returnDataList){
+      const action ={
+          type:'modelTrainingHandleSubmit',
+          returnDataList
+        }
+      store.dispatch(action)
+  }
   }else{
     const action ={
       type:'modelTrainingHandleSubmit',
